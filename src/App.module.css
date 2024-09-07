@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.header {
+.mainBody {
   background-color: var(--backgroundColor);
   min-height: 100vh;
   display: flex;
