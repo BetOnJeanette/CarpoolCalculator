@@ -39,7 +39,7 @@ const AddressPicker: Component = () => {
     };
     const props = createAsyncOptions(fetchAutoComplete) as any
     props.format = (val: SelectableFeature) => {return val.name}
-    return <Select {...props} class={styles.addressPicker}/>
+    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class={styles.addressPicker}/>
 }
 
 export default AddressPicker
