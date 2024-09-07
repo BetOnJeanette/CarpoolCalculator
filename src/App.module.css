@@ -1,16 +1,16 @@
 .App {
   text-align: center;
-}
-
-.mainBody {
   background-color: var(--backgroundColor);
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+}
+
+.mainBody {
   font-size: calc(10px + 2vmin);
   color: var(--textColor);
-  width: 40vw;
-  min-width: 400px;
+  width: 60vw;
+  min-width: 300px;
 }
