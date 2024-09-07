@@ -11,4 +11,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: var(--textColor);
+  width: 40vw;
+  min-width: 400px;
 }
