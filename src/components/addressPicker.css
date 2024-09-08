@@ -1,0 +1,10 @@
+.addressPicker.solid-select-container {
+    width: 100%;
+    
+    .solid-select-option:hover {
+        background-color: var(--lightEmphasis); 
+    }
+    .solid-select-option[data-focused="true"] {
+        background-color: var(--lightEmphasis);
+    }
+}

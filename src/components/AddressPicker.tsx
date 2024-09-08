@@ -3,7 +3,7 @@ import { Component, createSignal, useContext } from "solid-js";
 import { GetBottleNeck, MapAPIKey, useAppContext } from "../AppContext";
 import { FeatureResponse } from "../classes/FeatureResponse";
 import axios from "axios";
-import styles from "./addressPicker.module.css"
+import "./addressPicker.css"
 import "@thisbeyond/solid-select/style.css"
 
 interface QueryResponse {
@@ -39,7 +39,7 @@ const AddressPicker: Component = () => {
     };
     const props = createAsyncOptions(fetchAutoComplete) as any
     props.format = (val: SelectableFeature) => {return val.name}
-    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class={styles.addressPicker}/>
+    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class="addressPicker"/>
 }
 
 export default AddressPicker
