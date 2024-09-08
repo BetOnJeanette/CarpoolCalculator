@@ -11,8 +11,8 @@ interface QueryResponse {
     features: FeatureResponse[]
 }
 
-interface SelectableFeature extends FeatureResponse{
-    name: string
+interface PickerProps {
+    updateAddress: (value: FeatureResponse) => void
 }
 
 const AddressPicker: Component = () => {
@@ -23,22 +23,17 @@ const AddressPicker: Component = () => {
     searchParams.set("api_key", MapAPIKey)
     let options: FeatureResponse[]
 
-    const fetchAutoComplete = async (inputVal: string): Promise<SelectableFeature[]> => {
+    const fetchAutoComplete = async (inputVal: string): Promise<FeatureResponse[]> => {
         if (inputVal == "") return [];
         return await bottleneck.schedule( async() => {
             searchParams.set("text", inputVal)
             const search = autofillURL+searchParams.toString()
             const locations: QueryResponse  = await (await axios.get(search)).data
-            return locations.features.map((val, idx) => {
-                return {
-                    name: val.properties.label,
-                    ...val
-                }
-            })
+            return locations.features
         })
     };
     const props = createAsyncOptions(fetchAutoComplete) as any
-    props.format = (val: SelectableFeature) => {return val.name}
+    props.format = (val: FeatureResponse) => {return val.properties.label}
     return <Select placeholder="Pick a destination..." autofocus={true} {...props} class="addressPicker"/>
 }
 
