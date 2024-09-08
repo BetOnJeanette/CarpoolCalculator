@@ -1,6 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import {Select, createAsyncOptions} from "@thisbeyond/solid-select"
-import AddressPicker from "../components/AddressPicker";
+import AddressPicker from "../components/AddressPicker/AddressPicker";
 import { useAppContext } from "../AppContext";
 import { FeatureResponse } from "../classes/FeatureResponse";
 
