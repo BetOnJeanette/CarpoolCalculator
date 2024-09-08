@@ -15,7 +15,7 @@ interface PickerProps {
     updateAddress: (value: FeatureResponse) => void
 }
 
-const AddressPicker: Component = () => {
+const AddressPicker: Component<PickerProps> = ({updateAddress}: PickerProps) => {
     const bottleneck = GetBottleNeck();
     const autofillURL = "https://api.openrouteservice.org/geocode/autocomplete?"
     const searchParams = new URLSearchParams();
@@ -34,7 +34,7 @@ const AddressPicker: Component = () => {
     };
     const props = createAsyncOptions(fetchAutoComplete) as any
     props.format = (val: FeatureResponse) => {return val.properties.label}
-    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class="addressPicker"/>
+    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class="addressPicker" onChange={updateAddress}/>
 }
 
 export default AddressPicker
