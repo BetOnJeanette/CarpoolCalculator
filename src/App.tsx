@@ -1,14 +1,25 @@
-import { createSignal, onMount, type Component } from 'solid-js';
-
-import logo from './logo.svg';
+import { createSignal, Component } from 'solid-js';
+import { Destination } from "./pages/Destination"
 import styles from './App.module.css';
+import { AppContextProvider } from './AppContext';
+import { SelectableLocation } from './classes/Location';
 
 const App: Component = () => {
+
+  const [destination, setDestination] = createSignal<SelectableLocation>();
+  
+  function updateDestination(newDest: SelectableLocation) {
+    setDestination(newDest);
+  }
+
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-      </header>
-    </div>
+    <AppContextProvider>
+      <div class={styles.App}>
+        <header class={styles.mainBody}>
+          <Destination onSubmitDest={updateDestination}/>
+        </header>
+      </div>
+    </AppContextProvider>
   );
 };
 
