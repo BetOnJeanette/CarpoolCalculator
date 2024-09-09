@@ -5,6 +5,7 @@ import { useAppContext } from "../AppContext";
 import { FeatureResponse } from "../classes/FeatureResponse";
 import { Button } from "@suid/material";
 import { SubmitButton } from "../components/submitButton/SubmitButton";
+import styles from "./Destination.module.css"
 
 interface IDestinationProps {
     onSubmitDest: (dest: FeatureResponse) => void
@@ -21,7 +22,7 @@ const Destination: Component<IDestinationProps> = ({onSubmitDest}: IDestinationP
         onSubmitDest(chosenDest)
     }
 
-    return <div>
+    return <div class={styles.destPicker}>
         <AddressPicker updateAddress={setDest}/>
         <SubmitButton onSubmit={submitDestination}></SubmitButton>
     </div>

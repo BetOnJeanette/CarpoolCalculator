@@ -1,0 +1,5 @@
+.destPicker{
+    display: flex;
+    align-items: baseline;
+    gap: 5px
+}
