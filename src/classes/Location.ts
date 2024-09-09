@@ -2,7 +2,7 @@ import { FeatureResponse } from "./FeatureResponse";
 import { GeometryResponse } from "./GeometryResponse";
 import { PropertiesResponse } from "./PropertiesResponse";
 
-class SelectableLocation {
+export class SelectableLocation {
     public location: GeometryResponse;
     public label: string = ""
 
