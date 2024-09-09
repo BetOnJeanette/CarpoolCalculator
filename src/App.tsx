@@ -1,14 +1,14 @@
-import { createContext, createSignal, onMount, type Component } from 'solid-js';
+import { createSignal, Component } from 'solid-js';
 import { Destination } from "./pages/Destination"
 import styles from './App.module.css';
 import { AppContextProvider } from './AppContext';
-import { FeatureResponse } from './classes/FeatureResponse';
+import { SelectableLocation } from './classes/Location';
 
 const App: Component = () => {
 
-  const [destination, setDestination] = createSignal<FeatureResponse>();
+  const [destination, setDestination] = createSignal<SelectableLocation>();
   
-  function updateDestination(newDest: FeatureResponse) {
+  function updateDestination(newDest: SelectableLocation) {
     setDestination(newDest);
   }
 

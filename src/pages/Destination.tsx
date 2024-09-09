@@ -1,18 +1,16 @@
 import { Component, createSignal } from "solid-js";
-import {Select, createAsyncOptions} from "@thisbeyond/solid-select"
 import AddressPicker from "../components/AddressPicker/AddressPicker";
 import { useAppContext } from "../AppContext";
-import { FeatureResponse } from "../classes/FeatureResponse";
-import { Button } from "@suid/material";
 import { SubmitButton } from "../components/submitButton/SubmitButton";
 import styles from "./Destination.module.css"
+import { SelectableLocation } from "../classes/Location";
 
 interface IDestinationProps {
-    onSubmitDest: (dest: FeatureResponse) => void
+    onSubmitDest: (dest: SelectableLocation) => void
 }
 
 const Destination: Component<IDestinationProps> = ({onSubmitDest}: IDestinationProps) => {
-    const [dest, setDest] = createSignal<FeatureResponse>()
+    const [dest, setDest] = createSignal<SelectableLocation>()
     const contextData = useAppContext();
     if (contextData === null ) throw new Error();
     
