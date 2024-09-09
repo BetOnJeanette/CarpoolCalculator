@@ -1,0 +1,25 @@
+import { FeatureResponse } from "./FeatureResponse";
+import { GeometryResponse } from "./GeometryResponse";
+import { PropertiesResponse } from "./PropertiesResponse";
+
+class SelectableLocation {
+    public location: GeometryResponse;
+    public label: string = ""
+
+
+    constructor(feature: FeatureResponse){
+        this.location = feature.geometry;
+        this.label = this.GetLabel(feature.properties);
+
+    }
+
+    private GetLabel(properties: PropertiesResponse): string {
+        const elementsToUse = [properties.name]
+        if (properties.housenumber !== undefined && properties.street !== undefined && properties.locality !== undefined) {
+            elementsToUse.push([properties.housenumber, properties.street].join(" "), properties.locality);
+        }
+        elementsToUse.push(properties.region_a, properties.country_a)
+        return elementsToUse.join(", ")
+        
+    }
+}
