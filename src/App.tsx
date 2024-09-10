@@ -1,5 +1,5 @@
 import { createSignal, Component } from 'solid-js';
-import { Destination } from "./pages/Destination"
+import { Destination } from "./pages/Destination/Destination"
 import styles from './App.module.css';
 import { AppContextProvider } from './AppContext';
 import { SelectableLocation } from './classes/Location';
