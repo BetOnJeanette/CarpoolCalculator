@@ -16,8 +16,7 @@
     "vite-plugin-solid": "^2.8.2"
   },
   "dependencies": {
-    "@suid/icons-material": "^0.8.0",
-    "@suid/material": "^0.17.0",
+    "@kobalte/core": "^0.13.6",
     "@thisbeyond/solid-select": "^0.15.0",
     "axios": "^1.7.7",
     "bottleneck": "^2.19.5",

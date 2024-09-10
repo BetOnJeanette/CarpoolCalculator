@@ -1,41 +1,14 @@
-import { Button, createTheme, ThemeProvider } from "@suid/material";
-
-declare module '@suid/material/styles'{
-    interface Palette  {
-        submit: Palette["primary"]
-    }
-
-    interface PaletteOptions {
-        submit?: PaletteOptions['primary']
-    }
-}
-declare module '@suid/material/Button' {
-  interface ButtonPropsColorOverrides {
-    submit: true;
-  }
-}
-
-const theme = createTheme({
-    palette: {
-        submit: {
-            main: "rgb(2, 83, 12)",
-            light: "rgb(122, 168, 128)",
-            dark: "rgb(2, 83, 12)",
-            contrastText: "gray"
-        }
-
-    }
-})
+import { Button } from "@kobalte/core/button";
+import styles from "./SubmitButton.module.css"
 
 interface ISubmitProps {
     onSubmit(): void;
+    text?: string
 }
 
-export const SubmitButton = ({onSubmit}: ISubmitProps) => {
+export const SubmitButton = ({onSubmit, text}: ISubmitProps) => {
     return (
-        <ThemeProvider theme={theme}>
-            <Button onClick={onSubmit} variant="outlined" class="submitButton" color="submit">Submit</Button>
-        </ThemeProvider>
+        <Button onclick={onSubmit} class={styles.submitButton}>{text || "Submit"}</Button>
     )
     
 }
