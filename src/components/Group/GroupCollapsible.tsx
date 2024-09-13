@@ -40,7 +40,7 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
     }
 
     return (
-        <Collapsible open={key === CurrentActiveKey()} onOpenChange={OnChangeOpen}>
+        <Collapsible open={key === CurrentActiveKey()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
             <Collapsible.Trigger>
                 <span>{name()}</span>
             </Collapsible.Trigger>

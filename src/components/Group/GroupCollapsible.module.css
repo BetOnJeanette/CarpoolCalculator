@@ -7,6 +7,12 @@
     gap: 4px;
 }
 
+.groupCard {
+    border: 4px solid gray;
+    border-radius: 12px;
+    padding: 2px;
+}
+
 .addressPicker {
     grid-area: start;
 }
