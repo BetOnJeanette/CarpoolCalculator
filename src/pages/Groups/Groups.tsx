@@ -1,7 +1,8 @@
-import { createSignal, For, JSX } from "solid-js";
+import { createSignal, For, JSX, JSXElement } from "solid-js";
 import { Group } from "../../classes/Group";
 import { Accordion } from "@kobalte/core/accordion";
 import { GroupCollapsible } from "../../components/Group/GroupCollapsible";
+import { SubmitButton } from "../../components/submitButton/SubmitButton";
 
 interface IGroupsPageProps {
     BackUp(): void
@@ -40,8 +41,9 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     }
     AddGroup()
     return (
-        <div class="Groups">
-            <For each={GroupList}>{(item, index) => item}</For>
+            <button class={styles.backButton}>Back</button>
+            <button class={styles.addButton} onClick={AddGroup}>Add group</button>
+            <SubmitButton onSubmit={onSubmit} className={styles.submitButton}/>
         </div>
     )
 }
