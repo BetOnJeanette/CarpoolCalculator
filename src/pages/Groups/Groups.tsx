@@ -41,7 +41,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     }
     AddGroup()
     return (
-            <button class={styles.backButton}>Back</button>
+            <button class={styles.backButton} onClick={GoBack}>Back</button>
             <button class={styles.addButton} onClick={AddGroup}>Add group</button>
             <SubmitButton onSubmit={onSubmit} className={styles.submitButton}/>
         </div>
