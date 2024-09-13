@@ -36,8 +36,10 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     }
 
     function onSubmit() {
-        UpdateGroups(Array.from(groups.values()))
+        if(groups.size === 0) throw new Error("Need at least one group");
+        UpdateGroups(Array.from(groups.values()));
     }
+
     AddGroup()
     return (
         <div class={styles.groupPage}>
