@@ -6,6 +6,7 @@ import { SelectableLocation } from "../../classes/Location";
 import { NumberField } from "@kobalte/core/number-field";
 import AddressPicker from "../AddressPicker/AddressPicker";
 import { Button } from "@kobalte/core/button";
+import styles from "./GroupCollapsible.module.css"
 import { SubmitButton } from "../submitButton/SubmitButton";
 
 interface IGroupCollapsibleProps{
@@ -28,10 +29,14 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
         if (open) {
             SetAsOpen(key);
         } else {
-            const currentStartingPoint = startingPoint();
-            if (currentStartingPoint === undefined) throw Error()
-            else UpdateGroup(key, new Group(name(), groupSize(), currentStartingPoint))
+            AttemptUpdateGroup()
         }
+    }
+
+    function AttemptUpdateGroup(){
+        const currentStartingPoint = startingPoint();
+        if (currentStartingPoint === undefined) throw Error()
+        else UpdateGroup(key, new Group(name(), groupSize(), currentStartingPoint))
     }
 
     return (
@@ -39,20 +44,22 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
             <Collapsible.Trigger>
                 <span>{name()}</span>
             </Collapsible.Trigger>
-            <Collapsible.Content >
-                <TextField defaultValue={defaultName} onChange={setName}>
+            <Collapsible.Content class={styles.collapsibleCard}>
+                <TextField defaultValue={defaultName} onChange={setName} class={styles.namePicker}>
                     <TextField.Label>Group Name</TextField.Label>
                     <TextField.Input />
                 </TextField>
-                <NumberField rawValue={groupSize()} onRawValueChange={setGroupSize} minValue={0}>
+                <NumberField rawValue={groupSize()} onRawValueChange={setGroupSize} class={styles.groupSize} minValue={0}>
                     <NumberField.Label>Group Size</NumberField.Label>
-                    <div class="groupSizePicker">
-                        <NumberField.Input />
-                        <NumberField.IncrementTrigger /> 
-                        <NumberField.DecrementTrigger /> 
+                    <div class={styles.groupSizePicker}>
+                        <NumberField.Input class={styles.groupSizeInput}/>
+                        <NumberField.IncrementTrigger>+</NumberField.IncrementTrigger>  
+                        <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>  
                     </div>
                 </NumberField>
-                <SubmitButton onSubmit={() => AttemptUpdateGroup()}/>
+                <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker}/>
+                <Button onClick={() => RemoveGroup(key)}>Remove Group</Button>
+                <SubmitButton onSubmit={() => AttemptUpdateGroup()} text="Save Group" className={styles.groupSubmit}/>
             </Collapsible.Content>
         </Collapsible>
     )

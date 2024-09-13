@@ -1,0 +1,33 @@
+.collapsibleCard {
+    display: grid;
+    grid-template-areas:    "name name count"
+                            "start start start"
+                            "delete blank save";
+    grid-template-columns: 200px auto 200px;
+    gap: 4px;
+}
+
+.addressPicker {
+    grid-area: start;
+}
+
+.namePicker{
+    grid-area: name;
+}
+
+.groupSize {
+    grid-area: count; 
+    display: inline;
+}
+
+.groupSizePicker{
+    display: inline;
+}
+
+.groupSizeInput {
+    width: 25px;
+}
+
+.groupSubmit {
+    grid-area: save;
+}
