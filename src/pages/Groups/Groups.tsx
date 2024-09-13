@@ -39,6 +39,10 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     }
     AddGroup()
     return (
+        <div class={styles.groupPage}>
+            <div class={styles.groups}>
+                <For each={GroupList()}>{(item, index) => item}</For>
+            </div>
             <button class={styles.backButton} onClick={GoBack}>Back</button>
             <button class={styles.addButton} onClick={AddGroup}>Add group</button>
             <SubmitButton onSubmit={onSubmit} className={styles.submitButton}/>
