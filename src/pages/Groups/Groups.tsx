@@ -19,8 +19,14 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     function AddGroup() {
         const groupKey = lastKey;
         const newGroupsElement = GroupCollapsible({
-            UpdateGroup: groups.set,
-            RemoveGroup: groups.delete,
+            UpdateGroup: (key, group) => {
+                groups.set(key, group);
+                setcurrentKey(-1)
+            },
+            RemoveGroup: (key) => {
+                groups.delete(key)
+                setcurrentKey(key - 1)
+            },
             CurrentActiveKey: currentKey,
             SetAsOpen: setcurrentKey,
             key: groupKey
