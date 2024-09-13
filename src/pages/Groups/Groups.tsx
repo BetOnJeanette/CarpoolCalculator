@@ -2,6 +2,7 @@ import { createSignal, For, JSX, JSXElement } from "solid-js";
 import { Group } from "../../classes/Group";
 import { Accordion } from "@kobalte/core/accordion";
 import { GroupCollapsible } from "../../components/Group/GroupCollapsible";
+import styles from "./Groups.module.css"
 import { SubmitButton } from "../../components/submitButton/SubmitButton";
 
 interface IGroupsPageProps {
