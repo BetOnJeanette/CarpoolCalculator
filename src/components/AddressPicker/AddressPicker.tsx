@@ -6,6 +6,7 @@ import axios from "axios";
 import "./addressPicker.css"
 import "@thisbeyond/solid-select/style.css"
 import { SelectableLocation } from "../../classes/Location";
+import { className } from "solid-js/web";
 
 interface QueryResponse {
     query: object,
@@ -14,9 +15,10 @@ interface QueryResponse {
 
 interface PickerProps {
     updateAddress: (value: SelectableLocation) => void
+    classNames?: string
 }
 
-const AddressPicker: Component<PickerProps> = ({updateAddress}: PickerProps) => {
+const AddressPicker: Component<PickerProps> = ({classNames, updateAddress}: PickerProps) => {
     const bottleneck = GetBottleNeck();
     const autofillURL = "https://api.openrouteservice.org/geocode/autocomplete?"
     const searchParams = new URLSearchParams();
@@ -34,7 +36,7 @@ const AddressPicker: Component<PickerProps> = ({updateAddress}: PickerProps) => 
     };
     const props = createAsyncOptions(fetchAutoComplete) as any
     props.format = (val: SelectableLocation) => {return val.label}
-    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class="addressPicker" onChange={updateAddress}/>
+    return <Select placeholder="Pick a destination..." autofocus={true} {...props} class={["addressPicker", classNames].join(" ").trim()} onChange={updateAddress}/>
 }
 
 export default AddressPicker
