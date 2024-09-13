@@ -12,8 +12,8 @@ interface IGroupsPageProps {
 export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
     let lastKey = 0;
     const [currentKey, setCurrentKey] = createSignal<number>(lastKey);
+    const [GroupList, setGroupList] = createSignal<Array<JSX.Element>>([]);
     const groups = new Map<number, Group>()
-
 
     function AddGroup() {
         const groupKey = lastKey;
@@ -31,7 +31,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
             key: groupKey
         })
         lastKey++;
-        GroupList.push(newGroupsElement)
+        setGroupList(new Array<JSX.Element>(GroupList(), newGroupsElement))
     }
 
     function onSubmit() {
