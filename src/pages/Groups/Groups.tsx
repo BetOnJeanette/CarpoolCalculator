@@ -11,9 +11,7 @@ interface IGroupsPageProps {
 
 export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
     let lastKey = 0;
-    const [currentKey, setcurrentKey] = createSignal<number>(lastKey);
-    const GroupList: Array<JSX.Element> = [];
-
+    const [currentKey, setCurrentKey] = createSignal<number>(lastKey);
     const groups = new Map<number, Group>()
 
 
@@ -22,14 +20,14 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
         const newGroupsElement = GroupCollapsible({
             UpdateGroup: (key, group) => {
                 groups.set(key, group);
-                setcurrentKey(-1)
+                setCurrentKey(-1)
             },
             RemoveGroup: (key) => {
                 groups.delete(key)
-                setcurrentKey(key - 1)
+                setCurrentKey(key - 1)
             },
             CurrentActiveKey: currentKey,
-            SetAsOpen: setcurrentKey,
+            SetAsOpen: setCurrentKey,
             key: groupKey
         })
         lastKey++;
