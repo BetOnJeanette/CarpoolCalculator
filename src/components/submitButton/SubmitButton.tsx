@@ -3,12 +3,13 @@ import styles from "./SubmitButton.module.css"
 
 interface ISubmitProps {
     onSubmit(): void;
-    text?: string
+    text?: string;
+    className?: string;
 }
 
-export const SubmitButton = ({onSubmit, text}: ISubmitProps) => {
+export const SubmitButton = ({onSubmit, text, className}: ISubmitProps) => {
     return (
-        <Button onclick={onSubmit} class={styles.submitButton}>{text || "Submit"}</Button>
+        <Button onclick={onSubmit} class={[styles.submitButton, (className || "")].join(" ").trim()}>{text || "Submit"}</Button>
     )
     
 }
