@@ -6,6 +6,7 @@ import { SelectableLocation } from "../../classes/Location";
 import { NumberField } from "@kobalte/core/number-field";
 import AddressPicker from "../AddressPicker/AddressPicker";
 import { Button } from "@kobalte/core/button";
+import { SubmitButton } from "../submitButton/SubmitButton";
 
 interface IGroupCollapsibleProps{
     UpdateGroup(key: number, group: Group): void
@@ -51,8 +52,7 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
                         <NumberField.DecrementTrigger /> 
                     </div>
                 </NumberField>
-                <AddressPicker updateAddress={setStartingPoint}/>
-                <Button onClick={() => RemoveGroup(key)}></Button>
+                <SubmitButton onSubmit={() => AttemptUpdateGroup()}/>
             </Collapsible.Content>
         </Collapsible>
     )
