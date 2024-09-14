@@ -27,7 +27,6 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
                 groups.delete(key)
                 GroupList()?.delete(key)
                 setGroupList(new Map<number, JSX.Element>(GroupList()))
-                setCurrentKey(key - 1)
             },
             CurrentActiveKey: currentKey,
             SetAsOpen: setCurrentKey,
