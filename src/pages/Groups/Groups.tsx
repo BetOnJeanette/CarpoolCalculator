@@ -13,7 +13,7 @@ interface IGroupsPageProps {
 export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
     let lastKey = 0;
     const [currentKey, setCurrentKey] = createSignal<number>(lastKey);
-    const [GroupList, setGroupList] = createSignal<Array<JSX.Element>>([]);
+    const [GroupList, setGroupList] = createSignal<Map<number,JSX.Element>>();
     const groups = new Map<number, Group>()
 
     function AddGroup() {
@@ -25,14 +25,18 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
             },
             RemoveGroup: (key) => {
                 groups.delete(key)
+                GroupList()?.delete(key)
+                setGroupList(new Map<number, JSX.Element>(GroupList()))
                 setCurrentKey(key - 1)
             },
             CurrentActiveKey: currentKey,
             SetAsOpen: setCurrentKey,
             key: groupKey
         })
+        setCurrentKey(lastKey)
+        GroupList()?.set(lastKey, newGroupsElement)
         lastKey++;
-        setGroupList(new Array<JSX.Element>(GroupList(), newGroupsElement))
+        setGroupList(new Map<number, JSX.Element>(GroupList()))
     }
 
     function onSubmit() {
@@ -44,7 +48,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
     return (
         <div class={styles.groupPage}>
             <div class={styles.groups}>
-                <For each={GroupList()}>{(item, index) => item}</For>
+                <For each={Array.from(GroupList()?.values() || [])}>{(item, index) => item}</For>
             </div>
             <button class={styles.backButton} onClick={GoBack}>Back</button>
             <button class={styles.addButton} onClick={AddGroup}>Add group</button>
