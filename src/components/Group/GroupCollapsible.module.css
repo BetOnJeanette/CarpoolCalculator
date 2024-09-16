@@ -3,7 +3,8 @@
     grid-template-areas:    "name name count"
                             "start start start"
                             "delete blank save";
-    grid-template-columns: 200px auto 200px;
+    grid-template-columns: 300px auto 300px;
+    align-items: baseline;
     gap: 4px;
     padding: 2px;
 }

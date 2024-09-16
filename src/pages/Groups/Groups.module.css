@@ -1,5 +1,6 @@
 .groupPage {
     display: grid;
+    align-items: center;
     gap: 2px;
     grid-template-areas:    "groups groups groups"
                             "back add submit";
