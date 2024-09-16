@@ -35,6 +35,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
 
     function onSubmit() {
         if(GroupList().length === 0) throw new Error("Need at least one group");
+        if(GroupList().find((val) => !val.IsValid()) !== undefined) throw new Error("At least one group is not valid")
         UpdateGroups(GroupList().map(group => group.GroupData()));
     }
 
