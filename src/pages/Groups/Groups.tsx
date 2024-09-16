@@ -11,12 +11,12 @@ interface IGroupsPageProps {
 }
 
 export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
-    let lastKey = 0;
-    const [currentKey, setCurrentKey] = createSignal<number>(lastKey);
+    let nextKey = 1;
+    const [currentKey, setCurrentKey] = createSignal<number>(nextKey);
     const [GroupList, setGroupList] = createSignal<Array<IGroupCollapsibleResponse>>([]);
 
     function AddGroup() {
-        const groupKey = lastKey;
+        const groupKey = nextKey;
         const newGroupsElement = GroupCollapsible({
             RemoveGroup: () => {
                 const idx = GroupList().findIndex(val => val.UI === newGroupsElement.UI)
@@ -24,13 +24,17 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
                 setGroupList([...GroupList()])
             },
             CurrentActiveKey: currentKey,
-            SetAsOpen: setCurrentKey,
+            SetAsOpen: UpdateActiveKey,
             key: groupKey
         })
-        setCurrentKey(lastKey)
-        lastKey++;
+        setCurrentKey(nextKey)
+        nextKey++;
         GroupList().push(newGroupsElement)
         setGroupList([...GroupList()])
+    }
+
+    function UpdateActiveKey(key: number) {
+        setCurrentKey(key === currentKey() ? -1 : key);
     }
 
     function onSubmit() {

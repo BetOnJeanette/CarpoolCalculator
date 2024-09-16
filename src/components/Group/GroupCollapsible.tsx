@@ -31,11 +31,10 @@ export function GroupCollapsible({RemoveGroup, SetAsOpen, CurrentActiveKey, key}
     const [startingPoint, setStartingPoint] = createSignal<SelectableLocation>()
 
     function OnChangeOpen(open: boolean){
-        if (open) {
-            SetAsOpen(key);
-        } else {
-            if (!isValid()) throw new Error("Not a vaild group")
+        if (!open && !isValid()) {
+            throw new Error("Not a vaild group")
         }
+        SetAsOpen(key);
     }
 
     function isValid() {
