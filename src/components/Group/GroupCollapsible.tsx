@@ -10,31 +10,34 @@ import styles from "./GroupCollapsible.module.css"
 import { SubmitButton } from "../submitButton/SubmitButton";
 
 interface IGroupCollapsibleProps{
-    RemoveGroup(key: number): void
-    SetAsOpen(key: number): void
-    CurrentActiveKey: Accessor<number>
-    key: number
+    RemoveGroup(): void
+    RequestFocus(): void
 }
 
 export interface IGroupCollapsibleResponse{
     UI: JSX.Element
+    setOpen(open: boolean): void
     IsValid(): boolean
     GroupData(): Group
 }
 
-export function GroupCollapsible({RemoveGroup, SetAsOpen, CurrentActiveKey, key}: IGroupCollapsibleProps): IGroupCollapsibleResponse {
+export function GroupCollapsible({RemoveGroup, RequestFocus}: IGroupCollapsibleProps): IGroupCollapsibleResponse {
     const defaultName = "Group Name";
     const defaultGroupSize = 1;
 
+    const [open, setOpen] = createSignal<boolean>(true)
     const [name, setName] = createSignal<string>(defaultName);
     const [groupSize, setGroupSize] = createSignal<number>(defaultGroupSize)
     const [startingPoint, setStartingPoint] = createSignal<SelectableLocation>()
 
     function OnChangeOpen(open: boolean){
-        if (!open && !isValid()) {
-            throw new Error("Not a vaild group")
+        if (!open) {
+            if (!isValid()) throw new Error("Not a vaild group")
+            setOpen(false)
+        } else {
+            RequestFocus()
         }
-        SetAsOpen(key);
+        
     }
 
     function isValid() {
@@ -47,7 +50,7 @@ export function GroupCollapsible({RemoveGroup, SetAsOpen, CurrentActiveKey, key}
     }
 
     return {
-        UI:(<Collapsible open={key === CurrentActiveKey()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
+        UI:(<Collapsible open={open()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
             <Collapsible.Trigger class={styles.trigger}>
                 <span>{name()}</span>
             </Collapsible.Trigger>
@@ -65,10 +68,11 @@ export function GroupCollapsible({RemoveGroup, SetAsOpen, CurrentActiveKey, key}
                     </div>
                 </NumberField>
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker}/>
-                <Button onClick={() => RemoveGroup(key)}>Remove Group</Button>
+                <Button onClick={RemoveGroup}>Remove Group</Button>
             </Collapsible.Content>
         </Collapsible>),
         IsValid: isValid,
-        GroupData: getGroupData
+        GroupData: getGroupData,
+        setOpen: setOpen
     }
 }

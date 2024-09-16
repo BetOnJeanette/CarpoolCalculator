@@ -11,30 +11,41 @@ interface IGroupsPageProps {
 }
 
 export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
-    let nextKey = 1;
-    const [currentKey, setCurrentKey] = createSignal<number>(nextKey);
+    const [activeGroup, setActiveGroup] = createSignal<IGroupCollapsibleResponse>();
     const [GroupList, setGroupList] = createSignal<Array<IGroupCollapsibleResponse>>([]);
 
     function AddGroup() {
-        const groupKey = nextKey;
+        CloseCurrentGroup();
+
         const newGroupsElement = GroupCollapsible({
             RemoveGroup: () => {
                 const idx = GroupList().findIndex(val => val.UI === newGroupsElement.UI)
                 GroupList().splice(idx, 1)
                 setGroupList([...GroupList()])
             },
-            CurrentActiveKey: currentKey,
-            SetAsOpen: UpdateActiveKey,
-            key: groupKey
+            RequestFocus: () => UpdateActiveKey(newGroupsElement)
         })
-        setCurrentKey(nextKey)
-        nextKey++;
         GroupList().push(newGroupsElement)
         setGroupList([...GroupList()])
+        UpdateActiveKey(newGroupsElement)
     }
 
-    function UpdateActiveKey(key: number) {
-        setCurrentKey(key === currentKey() ? -1 : key);
+    function UpdateActiveKey(group: IGroupCollapsibleResponse) {
+        CloseCurrentGroup()
+        if (activeGroup() === group) {
+            setActiveGroup(undefined)
+        } else {
+            group.setOpen(true)
+            setActiveGroup(group)
+        }
+    }
+
+    function CloseCurrentGroup(){
+        const currentGroup = activeGroup()
+        if(currentGroup !== undefined) {
+            if(!currentGroup.IsValid()) throw Error("Clean up current group first");
+            currentGroup.setOpen(false)
+        }
     }
 
     function onSubmit() {
