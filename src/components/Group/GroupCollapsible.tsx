@@ -55,7 +55,7 @@ export function GroupCollapsible({RemoveGroup, RequestFocus}: IGroupCollapsibleP
                 <span>{name()}</span>
             </Collapsible.Trigger>
             <Collapsible.Content class={styles.collapsibleCard}>
-                <TextField defaultValue={defaultName} onChange={setName} class={styles.namePicker}>
+                <TextField defaultValue={name() || defaultName} onChange={setName} class={styles.namePicker}>
                     <TextField.Label>Group Name</TextField.Label>
                     <TextField.Input />
                 </TextField>
@@ -67,7 +67,7 @@ export function GroupCollapsible({RemoveGroup, RequestFocus}: IGroupCollapsibleP
                         <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>  
                     </div>
                 </NumberField>
-                <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker}/>
+                <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
                 <Button onClick={RemoveGroup}>Remove Group</Button>
             </Collapsible.Content>
         </Collapsible>),
