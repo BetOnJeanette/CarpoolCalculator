@@ -10,14 +10,19 @@ import styles from "./GroupCollapsible.module.css"
 import { SubmitButton } from "../submitButton/SubmitButton";
 
 interface IGroupCollapsibleProps{
-    UpdateGroup(key: number, group: Group): void
     RemoveGroup(key: number): void
     SetAsOpen(key: number): void
     CurrentActiveKey: Accessor<number>
     key: number
 }
 
-export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentActiveKey, key}: IGroupCollapsibleProps): JSX.Element {
+export interface IGroupCollapsibleResponse{
+    UI: JSX.Element
+    IsValid(): boolean
+    GroupData(): Group
+}
+
+export function GroupCollapsible({RemoveGroup, SetAsOpen, CurrentActiveKey, key}: IGroupCollapsibleProps): IGroupCollapsibleResponse {
     const defaultName = "Group Name";
     const defaultGroupSize = 1;
 
@@ -29,18 +34,21 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
         if (open) {
             SetAsOpen(key);
         } else {
-            AttemptUpdateGroup()
+            if (!isValid()) throw new Error("Not a vaild group")
         }
     }
 
-    function AttemptUpdateGroup(){
-        const currentStartingPoint = startingPoint();
-        if (currentStartingPoint === undefined) throw Error()
-        else UpdateGroup(key, new Group(name(), groupSize(), currentStartingPoint))
+    function isValid() {
+        return startingPoint() !== undefined;
     }
 
-    return (
-        <Collapsible open={key === CurrentActiveKey()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
+    function getGroupData() {
+        if (!isValid()) throw new Error("Not valid group data")
+        return new Group(name(), groupSize(), startingPoint() as SelectableLocation)
+    }
+
+    return {
+        UI:(<Collapsible open={key === CurrentActiveKey()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
             <Collapsible.Trigger class={styles.trigger}>
                 <span>{name()}</span>
             </Collapsible.Trigger>
@@ -59,8 +67,9 @@ export function GroupCollapsible({UpdateGroup, RemoveGroup, SetAsOpen, CurrentAc
                 </NumberField>
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker}/>
                 <Button onClick={() => RemoveGroup(key)}>Remove Group</Button>
-                <SubmitButton onSubmit={() => AttemptUpdateGroup()} text="Save Group" className={styles.groupSubmit}/>
             </Collapsible.Content>
-        </Collapsible>
-    )
+        </Collapsible>),
+        IsValid: isValid,
+        GroupData: getGroupData
+    }
 }
