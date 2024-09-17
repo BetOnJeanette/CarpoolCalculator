@@ -8,9 +8,10 @@ import { SubmitButton } from "../../components/submitButton/SubmitButton";
 interface IGroupsPageProps {
     BackUp(): void
     UpdateGroups(groups: Group[]): void
+    groups?: Group[]
 }
 
-export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPageProps){
+export default function GroupsPage({BackUp: GoBack, UpdateGroups, groups}: IGroupsPageProps){
     const [activeGroup, setActiveGroup] = createSignal<IGroupCollapsibleResponse>();
     const [GroupList, setGroupList] = createSignal<Array<IGroupCollapsibleResponse>>([]);
 
@@ -29,6 +30,21 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
         GroupList().push(newGroupsElement)
         setGroupList([...GroupList()])
         UpdateActiveKey(newGroupsElement)
+    }
+
+    function ReAddGroups(groups: Group[]){
+        setGroupList(groups.map(val => {
+            const newGroupsElement = GroupCollapsible({
+                RemoveGroup: () => {
+                    const idx = GroupList().findIndex(val => val.UI === newGroupsElement.UI)
+                    GroupList().splice(idx, 1)
+                    setGroupList([...GroupList()])
+                    setActiveGroup(undefined)
+                },
+                RequestFocus: () => UpdateActiveKey(newGroupsElement)
+            })
+            return newGroupsElement;
+        }))
     }
 
     function UpdateActiveKey(group: IGroupCollapsibleResponse) {
@@ -54,8 +70,13 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
         if(GroupList().find((val) => !val.IsValid()) !== undefined) throw new Error("At least one group is not valid")
         UpdateGroups(GroupList().map(group => group.GroupData()));
     }
+    
+    if(groups !== undefined && groups.length > 0) {
+        ReAddGroups(groups);
+    } else {
+        AddGroup()
+    }
 
-    AddGroup()
     return (
         <div class={styles.groupPage}>
             <div class={styles.groups}>

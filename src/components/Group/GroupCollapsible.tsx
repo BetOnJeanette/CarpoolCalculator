@@ -12,6 +12,7 @@ import { SubmitButton } from "../submitButton/SubmitButton";
 interface IGroupCollapsibleProps{
     RemoveGroup(): void
     RequestFocus(): void
+    group?: Group
 }
 
 export interface IGroupCollapsibleResponse{
@@ -21,14 +22,15 @@ export interface IGroupCollapsibleResponse{
     GroupData(): Group
 }
 
-export function GroupCollapsible({RemoveGroup, RequestFocus}: IGroupCollapsibleProps): IGroupCollapsibleResponse {
+export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupCollapsibleProps): IGroupCollapsibleResponse {
     const defaultName = "Group Name";
     const defaultGroupSize = 1;
 
     const [open, setOpen] = createSignal<boolean>(true)
-    const [name, setName] = createSignal<string>(defaultName);
-    const [groupSize, setGroupSize] = createSignal<number>(defaultGroupSize)
+    const [name, setName] = createSignal<string>(group?.name || defaultName);
+    const [groupSize, setGroupSize] = createSignal<number>(group?.peopleCount || defaultGroupSize)
     const [startingPoint, setStartingPoint] = createSignal<SelectableLocation>()
+    if (group !== undefined) setStartingPoint(group.location);
 
     function OnChangeOpen(open: boolean){
         if (!open) {
