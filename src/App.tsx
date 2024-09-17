@@ -40,7 +40,7 @@ const App: Component = () => {
   StateMap.set(States.Destination, defaultState)
   
   onMount(() => {
-    States.Groups, StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups}));
+    States.Groups, StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups, groups: groups}));
   })
 
   return (

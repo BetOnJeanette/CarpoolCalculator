@@ -41,7 +41,8 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups, groups}: IGrou
                     setGroupList([...GroupList()])
                     setActiveGroup(undefined)
                 },
-                RequestFocus: () => UpdateActiveKey(newGroupsElement)
+                RequestFocus: () => UpdateActiveKey(newGroupsElement),
+                group: val
             })
             return newGroupsElement;
         }))
@@ -70,7 +71,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups, groups}: IGrou
         if(GroupList().find((val) => !val.IsValid()) !== undefined) throw new Error("At least one group is not valid")
         UpdateGroups(GroupList().map(group => group.GroupData()));
     }
-    
+
     if(groups !== undefined && groups.length > 0) {
         ReAddGroups(groups);
     } else {
