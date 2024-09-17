@@ -22,6 +22,7 @@ export default function GroupsPage({BackUp: GoBack, UpdateGroups}: IGroupsPagePr
                 const idx = GroupList().findIndex(val => val.UI === newGroupsElement.UI)
                 GroupList().splice(idx, 1)
                 setGroupList([...GroupList()])
+                setActiveGroup(undefined)
             },
             RequestFocus: () => UpdateActiveKey(newGroupsElement)
         })
