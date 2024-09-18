@@ -1,28 +1,13 @@
 .submitButton {
-    appearance: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    outline: none;
-    border-width: 2px;
-    border-color: var(--emphasis);
-    border-style: solid;
-    border-radius: 8px;
-    color: var(--emphasis);
-    font-size: 16px;
-    background-color: var(--backgroundColor);
-    transition: background-color .25s;
-    padding: 4px;
+    border-color: var(--emphasis) !important;
+    color: var(--emphasis); 
 }
 
 .submitButton:hover {
     background-color: var(--lightEmphasis);
     color: black;
-    cursor: pointer;
 }
 
 .submitButton:focus-visible{
-    outline: 2px solid var(--emphasis);
-    outline-offset: 2px;
+    outline-color: var(--emphasis);
 }

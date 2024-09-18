@@ -1,5 +1,5 @@
 import { Collapsible } from "@kobalte/core/collapsible";
-import { Accessor, createSignal, JSX } from "solid-js";
+import { createSignal, JSX } from "solid-js";
 import { Group } from "../../classes/Group";
 import { TextField } from "@kobalte/core/text-field";
 import { SelectableLocation } from "../../classes/Location";
@@ -7,7 +7,7 @@ import { NumberField } from "@kobalte/core/number-field";
 import AddressPicker from "../AddressPicker/AddressPicker";
 import { Button } from "@kobalte/core/button";
 import styles from "./GroupCollapsible.module.css"
-import { SubmitButton } from "../submitButton/SubmitButton";
+import "../../styles/buttons.css"
 
 interface IGroupCollapsibleProps{
     RemoveGroup(): void
@@ -65,12 +65,12 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
                     <NumberField.Label>Group Size</NumberField.Label>
                     <div class={styles.groupSizePicker}>
                         <NumberField.Input class={styles.groupSizeInput}/>
-                        <NumberField.IncrementTrigger>+</NumberField.IncrementTrigger>  
-                        <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>  
+                        <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
+                        <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
                     </div>
                 </NumberField>
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
-                <Button onClick={RemoveGroup}>Remove Group</Button>
+                <Button onClick={RemoveGroup} class="button">Remove Group</Button>
             </Collapsible.Content>
         </Collapsible>),
         IsValid: isValid,
