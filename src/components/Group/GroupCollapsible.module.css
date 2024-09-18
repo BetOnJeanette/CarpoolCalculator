@@ -1,0 +1,74 @@
+.collapsibleCard {
+    display: grid;
+    grid-template-areas:    "name name count"
+                            "start start start"
+                            "delete blank save";
+    grid-template-columns: 300px auto 300px;
+    gap: 4px;
+    padding: 2px;
+}
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    padding: 14px;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    text-align: left;
+    outline: none;
+    border: none;
+    border-bottom: 4px solid gray;
+    background-color: transparent;
+    transition: background-color .25 s;
+}
+
+.trigger:hover{
+    background-color: var(--lightEmphasis);
+    cursor: pointer;
+}
+
+.groupCard {
+    border: 4px solid gray;
+    border-radius: 12px;
+}
+
+.addressPicker {
+    grid-area: start;
+}
+
+.namePicker{
+    grid-area: name;
+    display: inline-flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.groupSize {
+    grid-area: count; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+}
+
+.groupSizePicker{
+    display: inline;
+}
+
+.input {
+    padding: 4px;
+    border: solid 2px gray;
+}
+
+.inputLabel {
+    padding-right: 4px;
+}
+.groupSizeInput {
+    width: 25px;
+}
+
+.groupSubmit {
+    grid-area: save;
+}

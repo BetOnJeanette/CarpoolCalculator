@@ -1,0 +1,13 @@
+.submitButton {
+    border-color: var(--emphasis) !important;
+    color: var(--emphasis); 
+}
+
+.submitButton:hover {
+    background-color: var(--lightEmphasis);
+    color: black;
+}
+
+.submitButton:focus-visible{
+    outline-color: var(--emphasis);
+}

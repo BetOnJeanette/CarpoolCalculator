@@ -1,6 +1,8 @@
 .addressPicker.solid-select-container {
     width: 100%;
     
+    font-size: 1.25rem;
+    
     .solid-select-option:hover {
         background-color: var(--lightEmphasis); 
     }
