@@ -18,7 +18,7 @@ enum States {
 
 const App: Component = () => {
   const [state, setState] = createSignal<States>(States.Destination)
-  const defaultState = () => Destination({onSubmitDest: updateDestination});
+  const defaultState = () => Destination({onSubmitDest: updateDestination, currentDest: destination});
 
   let destination: SelectableLocation;
   let groups: Group[];
