@@ -58,13 +58,13 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
             </Collapsible.Trigger>
             <Collapsible.Content class={styles.collapsibleCard}>
                 <TextField defaultValue={name() || defaultName} onChange={setName} class={styles.namePicker}>
-                    <TextField.Label>Group Name</TextField.Label>
-                    <TextField.Input />
+                    <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
+                    <TextField.Input class={styles.input}/>
                 </TextField>
                 <NumberField rawValue={groupSize()} onRawValueChange={setGroupSize} class={styles.groupSize} minValue={0}>
-                    <NumberField.Label>Group Size</NumberField.Label>
+                    <NumberField.Label class={styles.inputLabel}>Group Size</NumberField.Label>
                     <div class={styles.groupSizePicker}>
-                        <NumberField.Input class={styles.groupSizeInput}/>
+                        <NumberField.Input class={[styles.groupSizeInput, styles.input].join(" ")}/>
                         <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
                         <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
                     </div>

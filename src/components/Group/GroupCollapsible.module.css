@@ -4,7 +4,6 @@
                             "start start start"
                             "delete blank save";
     grid-template-columns: 300px auto 300px;
-    align-items: baseline;
     gap: 4px;
     padding: 2px;
 }
@@ -41,20 +40,33 @@
 
 .namePicker{
     grid-area: name;
+    display: inline-flex;
+    justify-content: left;
+    align-items: center;
 }
 
 .groupSize {
     grid-area: count; 
-    display: inline;
+    display: inline-flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
 }
 
 .groupSizePicker{
     display: inline;
 }
 
+.input {
+    padding: 4px;
+    border: solid 2px gray;
+}
+
+.inputLabel {
+    padding-right: 4px;
+}
 .groupSizeInput {
     width: 25px;
-    padding: 4px;
 }
 
 .groupSubmit {
