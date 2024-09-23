@@ -5,6 +5,8 @@ import { AppContextProvider } from './AppContext';
 import { SelectableLocation } from './classes/Location';
 import { Group } from './classes/Group';
 import { Dynamic } from 'solid-js/web';
+import { Car } from './classes/Car';
+import CarsPage from './pages/Cars/carsPage';
 
 const GroupsPage = lazy(async () => await import("./pages/Groups/Groups"))
 
@@ -22,7 +24,8 @@ const App: Component = () => {
 
   let destination: SelectableLocation;
   let groups: Group[];
-  
+  let cars: Car[];
+
   function updateDestination(newDest: SelectableLocation){
     destination = newDest;
     setState(States.Groups)
@@ -30,6 +33,12 @@ const App: Component = () => {
 
   function updateGroups(newGroups: Group[]){
     groups = newGroups
+    setState(States.Cars);
+  }
+
+  function updateCars(newCars: Car[]) {
+    cars = newCars;
+    console.log(cars)
   }
 
   function GoBack(){
@@ -40,7 +49,8 @@ const App: Component = () => {
   StateMap.set(States.Destination, defaultState)
   
   onMount(() => {
-    States.Groups, StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups, groups: groups}));
+    StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups, groups: groups}));
+    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups}))
   })
 
   return (
