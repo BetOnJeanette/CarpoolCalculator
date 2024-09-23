@@ -49,7 +49,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
                     <span>{carOwner()?.name || "new car"}</span>
                 </Collapsible.Trigger>
                 <Collapsible.Content>
-                    <NumberField minValue={1} defaultValue={Car.defaultSeats} value={seats} onRawValueChange={updateSeatCount}>
+                    <NumberField minValue={1} defaultValue={seatCount()} value={seatCount()} onRawValueChange={updateSeatCount}>
                         <NumberField.Label>Available Seats</NumberField.Label>
                         <div>
                             <NumberField.Input />
