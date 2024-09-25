@@ -9,6 +9,7 @@ import { Button } from "@kobalte/core/button";
 import styles from "./GroupCollapsible.module.css"
 import "../../styles/buttons.css"
 import "../../styles/collapsible.css"
+import CountPicker from "../CountPicker/CountPicker";
 
 interface IGroupCollapsibleProps{
     RemoveGroup(): void
@@ -62,14 +63,7 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
                     <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
                     <TextField.Input class={styles.input}/>
                 </TextField>
-                <NumberField rawValue={groupSize()} onRawValueChange={setGroupSize} class={styles.groupSize} minValue={0}>
-                    <NumberField.Label class={styles.inputLabel}>Group Size</NumberField.Label>
-                    <div class={styles.groupSizePicker}>
-                        <NumberField.Input class={[styles.groupSizeInput, styles.input].join(" ")}/>
-                        <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
-                        <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
-                    </div>
-                </NumberField>
+                <CountPicker onChange={setGroupSize} defaultValue={groupSize()} className={styles.groupSize} />
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
                 <Button onClick={RemoveGroup} class="button">Remove Group</Button>
             </Collapsible.Content>

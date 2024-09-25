@@ -1,0 +1,23 @@
+.numField {
+    display: inline-flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+}
+
+.inputLabel {
+    padding-right: 4px;
+}
+
+.groupSizePicker {
+    display: inline;
+}
+
+.groupSizeInput {
+    width: 25px;
+}
+
+.input {
+    padding: 4px;
+    border: solid 2px gray;
+}
