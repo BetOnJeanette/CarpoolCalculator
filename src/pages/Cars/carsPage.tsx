@@ -13,11 +13,11 @@ interface ICarsProps {
 export default function CarsPage({availableGroups, onSubmit}: ICarsProps):JSX.Element {
     const [car, setCar] = createSignal<Car>()
     return (
-        <div>
-            <div class={styles.carsPage}>
+        <div class={styles.carsPage}>
+            <div class={styles.cars}>
              <CarCollapsible availableGroups={availableGroups} onChange={(car) => {setCar(car); console.log(car)}}/>
             </div>
-            <SubmitButton onSubmit={() => onSubmit([car() as Car])} />
+            <SubmitButton className={styles.submitButton} onSubmit={() => onSubmit([car() as Car])} />
         </div>
     )
 }
