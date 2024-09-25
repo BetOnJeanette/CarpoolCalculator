@@ -1,0 +1,10 @@
+.carCollapsible {
+    display: grid;
+    grid-template-areas:    "owner owner count"
+                            "remove gap gap";
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ownerPicker {
+    grid-area: owner;
+}

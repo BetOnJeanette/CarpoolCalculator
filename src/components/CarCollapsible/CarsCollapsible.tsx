@@ -5,6 +5,8 @@ import { Car } from "../../classes/Car";
 import { Select } from "@kobalte/core/select";
 import { NumberField } from "@kobalte/core/number-field";
 import GroupWrapper from "../../classes/GroupWrapper";
+import "../../styles/collapsible.css"
+import styles from "./CarsCollapsible.module.css"
 
 interface ICarProps {
     owner?: Group
@@ -44,20 +46,13 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
         }
     }
     return (
-            <Collapsible>
-                <Collapsible.Trigger>
+            <Collapsible class="collapsibleContainer">
+                <Collapsible.Trigger class="trigger">
                     <span>{carOwner()?.name || "new car"}</span>
                 </Collapsible.Trigger>
-                <Collapsible.Content>
-                    <NumberField minValue={1} defaultValue={seatCount()} value={seatCount()} onRawValueChange={updateSeatCount}>
-                        <NumberField.Label>Available Seats</NumberField.Label>
-                        <div>
-                            <NumberField.Input />
-                            <NumberField.IncrementTrigger>+</NumberField.IncrementTrigger>
-                            <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>
-                        </div>
-                    </NumberField>
+                <Collapsible.Content class={[styles.carCollapsible, "collapsible"].join(" ")}>
                     <Select 
+                        class={styles.ownerPicker}
                         options={options} 
                         optionTextValue="name" 
                         optionDisabled="disabled" 
@@ -81,6 +76,14 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
                             </Select.Content>
                         </Select.Portal>
                     </Select>
+                    <NumberField minValue={1} defaultValue={seatCount()} value={seatCount()} onRawValueChange={updateSeatCount}>
+                        <NumberField.Label>Available Seats</NumberField.Label>
+                        <div>
+                            <NumberField.Input />
+                            <NumberField.IncrementTrigger>+</NumberField.IncrementTrigger>
+                            <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>
+                        </div>
+                    </NumberField>
                 </Collapsible.Content>
             </Collapsible>
         )
