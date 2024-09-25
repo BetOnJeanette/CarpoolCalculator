@@ -7,6 +7,7 @@ import { NumberField } from "@kobalte/core/number-field";
 import GroupWrapper from "../../classes/GroupWrapper";
 import "../../styles/collapsible.css"
 import styles from "./CarsCollapsible.module.css"
+import CountPicker from "../CountPicker/CountPicker";
 
 interface ICarProps {
     owner?: Group
@@ -76,14 +77,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
                             </Select.Content>
                         </Select.Portal>
                     </Select>
-                    <NumberField minValue={1} defaultValue={seatCount()} value={seatCount()} onRawValueChange={updateSeatCount}>
-                        <NumberField.Label>Available Seats</NumberField.Label>
-                        <div>
-                            <NumberField.Input />
-                            <NumberField.IncrementTrigger>+</NumberField.IncrementTrigger>
-                            <NumberField.DecrementTrigger>-</NumberField.DecrementTrigger>
-                        </div>
-                    </NumberField>
+                    <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
                 </Collapsible.Content>
             </Collapsible>
         )

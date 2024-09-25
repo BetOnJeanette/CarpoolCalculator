@@ -64,7 +64,7 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
                     <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
                     <TextField.Input class="input"/>
                 </TextField>
-                <CountPicker onChange={setGroupSize} defaultValue={groupSize()} className={styles.groupSize} />
+                <CountPicker onChange={setGroupSize} defaultValue={groupSize()} className={styles.groupSize} label="Group Size"/>
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
                 <Button onClick={RemoveGroup} class="button">Remove Group</Button>
             </Collapsible.Content>
