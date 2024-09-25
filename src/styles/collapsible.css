@@ -1,0 +1,39 @@
+:root {
+    --border-thickness: 4px;
+    --interior-border-radius: calc(2 * var(--border-thickness));
+    --exterior-border-radius: calc(3 * var(--border-thickness));
+}
+
+.collapsibleContainer {
+    border: var(--border-thickness) solid gray;
+    border-radius: var(--exterior-border-radius);
+}
+
+.collapsible {
+    gap: var(--border-thickness);
+    padding: calc(var(--border-thickness) / 2);
+}
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    
+    text-align: left;
+    font-weight: 600;
+
+    width: 100%;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-bottom: var(--border-thickness) solid gray;
+    border-radius: var(--interior-border-radius) var(--interior-border-radius) 0 0;
+
+    background-color: transparent;
+    transition: background-color .25s;
+}
+
+.trigger:hover {
+    background-color: var(--lightEmphasis);
+    cursor: pointer;
+}
