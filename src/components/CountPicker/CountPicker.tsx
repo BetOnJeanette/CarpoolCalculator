@@ -12,7 +12,7 @@ export default function CountPicker({onChange, defaultValue, className}: ICountP
         <NumberField rawValue={defaultValue} onRawValueChange={onChange} class={[styles.numField, className].join(" ")} minValue={0}>
             <NumberField.Label class={styles.inputLabel}>Group Size</NumberField.Label>
             <div class={styles.groupSizePicker}>
-                <NumberField.Input class={[styles.groupSizeInput, styles.input].join(" ")}/>
+                <NumberField.Input class={[styles.groupSizeInput, styles.input, "input"].join(" ")}/>
                 <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
                 <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
             </div>

@@ -1,0 +1,4 @@
+.input {
+    padding: var(--border-thickness);
+    border: solid 2px gray;
+}

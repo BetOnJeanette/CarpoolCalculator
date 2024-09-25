@@ -9,6 +9,7 @@ import { Button } from "@kobalte/core/button";
 import styles from "./GroupCollapsible.module.css"
 import "../../styles/buttons.css"
 import "../../styles/collapsible.css"
+import "../../styles/inputStyles.css"
 import CountPicker from "../CountPicker/CountPicker";
 
 interface IGroupCollapsibleProps{
@@ -61,7 +62,7 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
             <Collapsible.Content class={[styles.collapsibleCard, "collapsible"].join(" ")}>
                 <TextField defaultValue={name() || defaultName} onChange={setName} class={styles.namePicker}>
                     <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
-                    <TextField.Input class={styles.input}/>
+                    <TextField.Input class="input"/>
                 </TextField>
                 <CountPicker onChange={setGroupSize} defaultValue={groupSize()} className={styles.groupSize} />
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
