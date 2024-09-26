@@ -55,39 +55,39 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
         return new GroupWrapper(currentOwner)
     }
     return (
-            <Collapsible class="collapsibleContainer">
-                <Collapsible.Trigger class="trigger">
-                    <span>{carOwner()?.name || "new car"}</span>
-                </Collapsible.Trigger>
-                <Collapsible.Content class={[styles.carCollapsible, "collapsible"].join(" ")}>
-                    <Select 
-                        class={styles.ownerPicker}
-                        options={options} 
-                        optionTextValue="name" 
-                        optionDisabled="disabled" 
-                        optionValue="group" 
-                        defaultValue={getDefaultGroup()}
-                        placeholder={"Who does the car start with?"} 
-                        onChange={(group) => updateCarOwner(group?.group || null)} itemComponent={props => (
-                        <Select.Item item={props.item}> 
-                            <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
-                        </Select.Item>
-                    )}> 
-                        <Select.Label></Select.Label>
-                        <Select.Trigger>
-                            <Select.Value<Group>>
-                                {state => state.selectedOption().name}
-                            </Select.Value>
-                            <Select.Arrow />
-                        </Select.Trigger>
-                        <Select.Portal>
-                            <Select.Content>
-                                <Select.Listbox />
-                            </Select.Content>
-                        </Select.Portal>
-                    </Select>
-                    <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
-                </Collapsible.Content>
-            </Collapsible>
-        )
+        <Collapsible class="collapsibleContainer">
+            <Collapsible.Trigger class="trigger">
+                <span>{carOwner()?.name || "new car"}</span>
+            </Collapsible.Trigger>
+            <Collapsible.Content class={[styles.carCollapsible, "collapsible"].join(" ")}>
+                <Select 
+                    class={styles.ownerPicker}
+                    options={options} 
+                    optionTextValue="name" 
+                    optionDisabled="disabled" 
+                    optionValue="group" 
+                    defaultValue={getDefaultGroup()}
+                    placeholder={"Who does the car start with?"} 
+                    onChange={(group) => updateCarOwner(group?.group || null)} itemComponent={props => (
+                    <Select.Item item={props.item}> 
+                        <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
+                    </Select.Item>
+                )}> 
+                    <Select.Label>Car Owner</Select.Label>
+                    <Select.Trigger class="input">
+                        <Select.Value<Group>>
+                            {state => state.selectedOption().name}
+                        </Select.Value>
+                        <Select.Arrow />
+                    </Select.Trigger>
+                    <Select.Portal>
+                        <Select.Content>
+                            <Select.Listbox />
+                        </Select.Content>
+                    </Select.Portal>
+                </Select>
+                <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
+            </Collapsible.Content>
+        </Collapsible>
+    )
 }
