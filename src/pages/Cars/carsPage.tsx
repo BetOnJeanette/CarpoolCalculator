@@ -1,4 +1,4 @@
-import { createSignal, JSX } from "solid-js";
+import { createSignal, For, JSX } from "solid-js";
 import styles from "./cars.module.css"
 import CarCollapsible from "../../components/CarCollapsible/CarsCollapsible";
 import { Group } from "../../classes/Group";
@@ -11,14 +11,35 @@ interface ICarsProps {
     onBack(): void
 }
 
-export default function CarsPage({availableGroups, onSubmit}: ICarsProps):JSX.Element {
-    const [car, setCar] = createSignal<Car>()
+interface IControlGroup {
+    UI: JSX.Element
+    Car?: Car
+}
+
+export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps):JSX.Element {
+    const [cars, setCars] = createSignal<IControlGroup[]>([])
+    
+    function AddCar(){
+        const newGroup:IControlGroup = {
+            UI: (<CarCollapsible availableGroups={availableGroups} onChange={(val) => newGroup.Car = val}/>)
+        }
+        setCars([...cars(), newGroup])
+    }
+    
+    function AttemptSubmit(){
+        const unfinishedIdx = cars().findIndex((val) => val.Car === undefined);
+        if (unfinishedIdx !== -1) throw new Error(`At least one is not finished: ${unfinishedIdx}`)
+        onSubmit(cars().map(val => val.Car).filter(val => val !== undefined))
+    }
+
     return (
         <div class={styles.carsPage}>
             <div class={styles.cars}>
-             <CarCollapsible availableGroups={availableGroups} onChange={(car) => {setCar(car); console.log(car)}}/>
+                <For each={cars()}>{(item) => item.UI}</For>
             </div>
             <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
+            <button class={[styles.addButton, "button"].join(" ")} onClick={AddCar}>Add car</button>
+            <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />
         </div>
     )
 }
