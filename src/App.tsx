@@ -50,7 +50,7 @@ const App: Component = () => {
   
   onMount(() => {
     StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups, groups: groups}));
-    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups}))
+    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack}))
   })
 
   return (

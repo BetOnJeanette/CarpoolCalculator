@@ -8,6 +8,7 @@ import { SubmitButton } from "../../components/submitButton/SubmitButton";
 interface ICarsProps {
     availableGroups: Group[]
     onSubmit(cars: Car[]): void
+    onBack(): void
 }
 
 export default function CarsPage({availableGroups, onSubmit}: ICarsProps):JSX.Element {
@@ -17,7 +18,7 @@ export default function CarsPage({availableGroups, onSubmit}: ICarsProps):JSX.El
             <div class={styles.cars}>
              <CarCollapsible availableGroups={availableGroups} onChange={(car) => {setCar(car); console.log(car)}}/>
             </div>
-            <SubmitButton className={styles.submitButton} onSubmit={() => onSubmit([car() as Car])} />
+            <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
         </div>
     )
 }
