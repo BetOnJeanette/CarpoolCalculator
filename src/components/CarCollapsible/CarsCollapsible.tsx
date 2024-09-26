@@ -21,6 +21,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
     const [seatCount, setSeatCount] = createSignal<number>(Car.defaultSeats);
     if (owner !== undefined) setCarOwner(owner);
     if (seats !== undefined) setSeatCount(seats);
+
     const options = availableGroups.map((val) => new GroupWrapper(val))
 
     function GetCarData(): Car{
@@ -28,6 +29,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
         if (currentOwner === undefined) throw new Error("No driver for the car")
         return new Car(currentOwner, seatCount())
     }
+
     function updateCarOwner(newOwner: Group | null){ 
         console.log(newOwner)
         setCarOwner(newOwner || undefined)
@@ -46,6 +48,12 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
             
         }
     }
+
+    function getDefaultGroup(){
+        const currentOwner = carOwner()
+        if (currentOwner === undefined) return undefined
+        return new GroupWrapper(currentOwner)
+    }
     return (
             <Collapsible class="collapsibleContainer">
                 <Collapsible.Trigger class="trigger">
@@ -58,6 +66,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
                         optionTextValue="name" 
                         optionDisabled="disabled" 
                         optionValue="group" 
+                        defaultValue={getDefaultGroup()}
                         placeholder={"Who does the car start with?"} 
                         onChange={(group) => updateCarOwner(group?.group || null)} itemComponent={props => (
                         <Select.Item item={props.item}> 
