@@ -30,7 +30,7 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
     return (
         <div class={styles.carsPage}>
             <div class={styles.cars}>
-                <For each={cars()}>{(item) => <CarCollapsible existingCar={item} onChange={newItem => item = newItem} availableGroups={availableGroups}/>}</For>
+                <For each={cars()}>{(item, idx) => <CarCollapsible existingCar={item} onChange={newItem => cars()[idx()] = newItem} availableGroups={availableGroups}/>}</For>
             </div>
             <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
             <button class={[styles.addButton, "button"].join(" ")} onClick={AddCar}>Add car</button>
