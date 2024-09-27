@@ -11,7 +11,7 @@ interface ICountPickerProps {
 export default function CountPicker({onChange, defaultValue, className, label}: ICountPickerProps){
     return (
         <NumberField rawValue={defaultValue} onRawValueChange={onChange} class={[styles.numField, className].join(" ")} minValue={0}>
-            <NumberField.Label class={styles.inputLabel}>{label}</NumberField.Label>
+            <NumberField.Label class="inputLabel">{label}</NumberField.Label>
             <div class={styles.groupSizePicker}>
                 <NumberField.Input class={[styles.groupSizeInput, styles.input, "input"].join(" ")}/>
                 <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  

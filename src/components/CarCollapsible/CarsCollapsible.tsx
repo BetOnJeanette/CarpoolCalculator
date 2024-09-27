@@ -73,7 +73,7 @@ export default function CarCollapsible({owner, seats, onChange, availableGroups}
                         <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
                     </Select.Item>
                 )}> 
-                    <Select.Label>Car Owner</Select.Label>
+                    <Select.Label class="inputLabel">Car Owner</Select.Label>
                     <Select.Trigger class="input">
                         <Select.Value<Group>>
                             {state => state.selectedOption().name}

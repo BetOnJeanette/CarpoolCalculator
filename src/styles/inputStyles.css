@@ -1,4 +1,9 @@
 .input {
     padding: var(--border-thickness);
     border: solid 2px gray;
+    transition: background-color .25s;
+}
+
+.inputLabel { 
+    padding-right: 4px;
 }
