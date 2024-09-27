@@ -70,7 +70,7 @@ export default function CarCollapsible({existingCar, onChange, availableGroups}:
                     defaultValue={getDefaultGroup()}
                     placeholder={"Who does the car start with?"} 
                     onChange={(group) => updateCarOwner(group?.group || null)} itemComponent={props => (
-                    <Select.Item item={props.item}> 
+                    <Select.Item item={props.item} class={styles.selectItem}> 
                         <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
                     </Select.Item>
                 )}> 
@@ -82,8 +82,8 @@ export default function CarCollapsible({existingCar, onChange, availableGroups}:
                         <Select.Arrow />
                     </Select.Trigger>
                     <Select.Portal>
-                        <Select.Content>
-                            <Select.Listbox />
+                        <Select.Content class={styles.ownerPickerContent}>
+                            <Select.Listbox class={styles.optionList}/>
                         </Select.Content>
                     </Select.Portal>
                 </Select>
