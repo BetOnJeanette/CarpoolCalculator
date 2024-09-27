@@ -10,17 +10,18 @@ import styles from "./CarsCollapsible.module.css"
 import CountPicker from "../CountPicker/CountPicker";
 
 interface ICarProps {
-    owner?: Group
-    seats?: number
+    existingCar?: Car
     availableGroups: Group[]
     onChange(updatedCar: Car): void
 }
 
-export default function CarCollapsible({owner, seats, onChange, availableGroups}: ICarProps): JSX.Element {
+export default function CarCollapsible({existingCar, onChange, availableGroups}: ICarProps): JSX.Element {
     const [carOwner, setCarOwner] = createSignal<Group>();
     const [seatCount, setSeatCount] = createSignal<number>(Car.defaultSeats);
-    if (owner !== undefined) setCarOwner(owner);
-    if (seats !== undefined) setSeatCount(seats);
+    if (existingCar !== undefined) {
+        setCarOwner(existingCar.StartsWith);
+        setSeatCount(existingCar.Seats);
+    }
 
     const options = availableGroups.map((val) => new GroupWrapper(val))
 
