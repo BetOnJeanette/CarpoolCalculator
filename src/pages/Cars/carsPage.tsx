@@ -19,6 +19,7 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
     }
     
     function AttemptSubmit(){
+        if(cars().length < 1) throw new Error("You need at least one car")
         const unfinishedIdx = cars().findIndex((val) => val === undefined);
         if (unfinishedIdx !== -1) throw new Error(`At least one is not finished: ${unfinishedIdx}`)
         onSubmit(cars().filter(val => val !== undefined))
