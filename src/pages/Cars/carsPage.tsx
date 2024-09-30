@@ -4,6 +4,7 @@ import CarCollapsible from "../../components/CarCollapsible/CarsCollapsible";
 import { Group } from "../../classes/Group";
 import { Car } from "../../classes/Car";
 import { SubmitButton } from "../../components/submitButton/SubmitButton";
+import { Accordion } from "@kobalte/core/accordion";
 
 interface ICarsProps {
     availableGroups: Group[]
@@ -13,9 +14,11 @@ interface ICarsProps {
 
 export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps):JSX.Element {
     const [cars, setCars] = createSignal<Array<Car | undefined>>([])
+    const [currentOpen, setCurrentOpen] = createSignal<number>(0)
     
     function AddCar(){
         setCars([...cars(), undefined])
+        setCurrentOpen(cars().length - 1)
     }
 
     function RemoveCar(index: number){
@@ -30,13 +33,28 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
         onSubmit(cars().filter(val => val !== undefined))
     }
 
+    function AttemptChangeOpen(newOpen: string[]){
+        if (currentOpen() !== -1 && cars()[currentOpen()] === undefined) throw new Error("Not valid car");
+        const newKey = newOpen.length > 0 ? parseInt(newOpen[0]) : -1
+        setCurrentOpen(newKey)
+    }
+
     AddCar()
 
     return (
         <div class={styles.carsPage}>
-            <div class={styles.cars}>
-                <For each={cars()}>{(item, idx) => <CarCollapsible existingCar={item} onChange={newItem => cars()[idx()] = newItem} onRemove={() => RemoveCar(idx())}availableGroups={availableGroups}/>}</For>
-            </div>
+            <Accordion collapsible={true} class={styles.cars} value={[currentOpen().toString()]} onChange={AttemptChangeOpen}>
+                <For each={cars()}>
+                    {(item, idx) => 
+                        <CarCollapsible 
+                            existingCar={item} 
+                            onChange={newItem => cars()[idx()] = newItem}
+                            key={idx}
+                            onRemove={() => RemoveCar(idx())}
+                            availableGroups={availableGroups}/>
+                    }
+                </For>
+            </Accordion>
             <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
             <button class={[styles.addButton, "button"].join(" ")} onClick={AddCar}>Add car</button>
             <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />

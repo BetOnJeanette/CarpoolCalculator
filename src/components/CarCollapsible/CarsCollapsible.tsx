@@ -1,23 +1,23 @@
-import { createSignal, JSX } from "solid-js";
+import { Accessor, createSignal, JSX } from "solid-js";
 import { Group } from "../../classes/Group";
-import { Collapsible } from "@kobalte/core/collapsible";
 import { Car } from "../../classes/Car";
 import { Select } from "@kobalte/core/select";
-import { NumberField } from "@kobalte/core/number-field";
 import GroupWrapper from "../../classes/GroupWrapper";
 import "../../styles/collapsible.css"
 import styles from "./CarsCollapsible.module.css"
 import CountPicker from "../CountPicker/CountPicker";
 import { Button } from "@kobalte/core/button";
+import { Accordion } from "@kobalte/core/accordion";
 
 interface ICarProps {
     existingCar?: Car
     availableGroups: Group[]
-    onChange(updatedCar: Car): void
+    key: Accessor<number>
+    onChange(updatedCar?: Car): void
     onRemove(): void
 }
 
-export default function CarCollapsible({existingCar, availableGroups, onChange, onRemove}: ICarProps): JSX.Element {
+export default function CarCollapsible({existingCar, availableGroups, key, onChange, onRemove}: ICarProps): JSX.Element {
     const [carOwner, setCarOwner] = createSignal<Group>();
     const [seatCount, setSeatCount] = createSignal<number>(Car.defaultSeats);
     if (existingCar !== undefined) {
@@ -27,29 +27,20 @@ export default function CarCollapsible({existingCar, availableGroups, onChange, 
 
     const options = availableGroups.map((val) => new GroupWrapper(val))
 
-    function GetCarData(): Car{
+    function GetCarData(): Car | undefined{
         const currentOwner = carOwner()
-        if (currentOwner === undefined) throw new Error("No driver for the car")
+        if (currentOwner === undefined) return undefined;
         return new Car(currentOwner, seatCount())
     }
 
     function updateCarOwner(newOwner: Group | null){ 
-        console.log(newOwner)
         setCarOwner(newOwner || undefined)
-        try {
-            onChange(GetCarData())
-        } catch {
-
-        }
+        onChange(GetCarData())
     }
 
     function updateSeatCount(seats: number){
         setSeatCount(seats) 
-        try {
-            onChange(GetCarData())
-        } catch {
-            
-        }
+        onChange(GetCarData())
     }
 
     function getDefaultGroup(){
@@ -57,12 +48,15 @@ export default function CarCollapsible({existingCar, availableGroups, onChange, 
         if (currentOwner === undefined) return undefined
         return new GroupWrapper(currentOwner)
     }
+
     return (
-        <Collapsible class="collapsibleContainer">
-            <Collapsible.Trigger class="trigger">
-                <span>{carOwner()?.name || "new car"}</span>
-            </Collapsible.Trigger>
-            <Collapsible.Content class={[styles.carCollapsible, "collapsible"].join(" ")}>
+        <Accordion.Item class="collapsibleContainer" value={key().toString()}>
+            <Accordion.Header class={styles.header}>
+                <Accordion.Trigger class="trigger">
+                    {carOwner()?.name || "New car"}
+                </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content class={[styles.carCollapsible, "collapsible"].join(" ")}>
                 <Select 
                     class={styles.ownerPicker}
                     options={options} 
@@ -91,7 +85,7 @@ export default function CarCollapsible({existingCar, availableGroups, onChange, 
                 </Select>
                 <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
                 <Button class="button" onClick={onRemove}>Remove Car</Button>
-            </Collapsible.Content>
-        </Collapsible>
+            </Accordion.Content>
+        </Accordion.Item>
     )
 }
