@@ -23,8 +23,8 @@ const App: Component = () => {
   const defaultState = () => Destination({onSubmitDest: updateDestination, currentDest: destination});
 
   let destination: SelectableLocation;
-  let groups: Group[];
-  let cars: Car[];
+  let groups: Group[] = [];
+  let cars: Car[] = [];
 
   function updateDestination(newDest: SelectableLocation){
     destination = newDest;
