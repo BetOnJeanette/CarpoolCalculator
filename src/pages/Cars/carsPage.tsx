@@ -14,9 +14,19 @@ interface ICarsProps {
 
 export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps):JSX.Element {
     const [cars, setCars] = createSignal<Array<Car | undefined>>([])
-    const [currentOpen, setCurrentOpen] = createSignal<number>(0)
+    const [currentOpen, setCurrentOpen] = createSignal<number>(-1)
+    const ALL_CLOSED = -1
+
+    function IsCurrentValid() {
+        return currentOpen() === ALL_CLOSED || cars()[currentOpen()] !== undefined;
+    }
     
+    function ShowValidationIssue(){
+        throw new Error("The current car is not valid")
+    }
+
     function AddCar(){
+        if(!IsCurrentValid()) ShowValidationIssue()
         setCars([...cars(), undefined])
         setCurrentOpen(cars().length - 1)
     }
@@ -24,6 +34,7 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
     function RemoveCar(index: number){
         cars().splice(index, 1)
         setCars([...cars()])
+        setCurrentOpen(ALL_CLOSED)
     }
     
     function AttemptSubmit(){
@@ -34,7 +45,7 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
     }
 
     function AttemptChangeOpen(newOpen: string[]){
-        if (currentOpen() !== -1 && cars()[currentOpen()] === undefined) throw new Error("Not valid car");
+        if (!IsCurrentValid()) ShowValidationIssue()
         const newKey = newOpen.length > 0 ? parseInt(newOpen[0]) : -1
         setCurrentOpen(newKey)
     }
