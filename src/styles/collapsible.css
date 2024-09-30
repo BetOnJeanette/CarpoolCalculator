@@ -37,3 +37,7 @@
     background-color: var(--lightEmphasis);
     cursor: pointer;
 }
+
+.header {
+    margin: 0
+}

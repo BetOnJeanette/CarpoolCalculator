@@ -48,7 +48,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
 
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
-            <Accordion.Header class={styles.header}>
+            <Accordion.Header class="header">
                 <Accordion.Trigger class="trigger">
                     {carOwner()?.name || "New car"}
                 </Accordion.Trigger>

@@ -44,7 +44,7 @@ export function GroupCollapsible({existingData, key, onChange, onRemove}: IListC
 
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
-            <Accordion.Header>
+            <Accordion.Header class="header">
                 <Accordion.Trigger class="trigger">
                     {name()}
                 </Accordion.Trigger>
