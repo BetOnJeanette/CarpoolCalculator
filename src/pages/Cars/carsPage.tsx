@@ -10,11 +10,12 @@ import ListAccordion from "../../components/ListAccordion/ListAccordion";
 
 interface ICarsProps {
     availableGroups: Group[]
+    existingCars: Car[]
     onSubmit(cars: Car[]): void
     onBack(): void
 }
 
-export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps):JSX.Element {
+export default function CarsPage({availableGroups, onSubmit, onBack, existingCars}: ICarsProps):JSX.Element {
 
     function getCarCollapsible(collapsibleData: IListCollapsible<Car>){
         return <CarCollapsible {...collapsibleData} availableGroups={availableGroups} />
@@ -22,6 +23,6 @@ export default function CarsPage({availableGroups, onSubmit, onBack}: ICarsProps
 
 
     return (
-        <ListAccordion onSubmit={onSubmit} onBack={onBack} ListElements={getCarCollapsible}/>
+        <ListAccordion existingData={existingCars} onSubmit={onSubmit} onBack={onBack} ListElements={getCarCollapsible}/>
     )
 }

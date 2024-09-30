@@ -9,12 +9,13 @@ interface IAccordionListProps<ReturnType>{
     onSubmit(list: ReturnType[]): void
     onBack(): void
     ListElements(CollapsibleData: IListCollapsible<ReturnType>): JSX.Element
+    existingData: ReturnType[]
 }
 
-export default function ListAccordion<ListType>({onSubmit, onBack, ListElements}: IAccordionListProps<ListType>){
+export default function ListAccordion<ListType>({onSubmit, onBack, ListElements, existingData}: IAccordionListProps<ListType>){
     const ALL_CLOSED = -1
 
-    const [list, setList] = createSignal<Array<ListType | undefined>>([])
+    const [list, setList] = createSignal<Array<ListType | undefined>>(existingData)
     const [currentOpen, setCurrentOpen] = createSignal<number>(ALL_CLOSED)
 
 
@@ -51,25 +52,25 @@ export default function ListAccordion<ListType>({onSubmit, onBack, ListElements}
         setCurrentOpen(newKey)
     }
 
-    AddToList()
+    if (list().length ===0) AddToList()
 
-        return(
-            <div class={styles.listPage}>
-                <Accordion collapsible={true} class={styles.list} value={[currentOpen().toString()]} onChange={AttemptChangeOpen}>
-                    <For each={list()}>
-                        {(item, idx) => 
-                            <ListElements
-                                existingData={item} 
-                                onChange={newItem => list()[idx()] = newItem}
-                                key={idx}
-                                onRemove={() => RemoveFromList(idx())}/>
-                        }
-                    </For>
-                </Accordion>
-                <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
-                <button class={[styles.addButton, "button"].join(" ")} onClick={AddToList}>Add car</button>
-                <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />
-            </div>
-        )
+    return(
+        <div class={styles.listPage}>
+            <Accordion collapsible={true} class={styles.list} value={[currentOpen().toString()]} onChange={AttemptChangeOpen}>
+                <For each={list()}>
+                    {(item, idx) => 
+                        <ListElements
+                            existingData={item} 
+                            onChange={newItem => list()[idx()] = newItem}
+                            key={idx}
+                            onRemove={() => RemoveFromList(idx())}/>
+                    }
+                </For>
+            </Accordion>
+            <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
+            <button class={[styles.addButton, "button"].join(" ")} onClick={AddToList}>Add car</button>
+            <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />
+        </div>
+    )
 
 }

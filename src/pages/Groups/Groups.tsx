@@ -4,12 +4,13 @@ import "../../styles/buttons.css"
 import ListAccordion from "../../components/ListAccordion/ListAccordion";
 
 interface IGroupProps {
+    existingGroups: Group[]
     onBack(): void
     onSubmit(groups: Group[]): void
 }
 
-export default function GroupsPage({onBack, onSubmit}: IGroupProps){
+export default function GroupsPage({onBack, onSubmit, existingGroups}: IGroupProps){
     return (
-        <ListAccordion onSubmit={onSubmit} onBack={onBack} ListElements={GroupCollapsible} />
+        <ListAccordion existingData={existingGroups} onSubmit={onSubmit} onBack={onBack} ListElements={GroupCollapsible} />
     )
 }
