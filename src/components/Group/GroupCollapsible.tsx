@@ -18,6 +18,10 @@ export function GroupCollapsible({existingData, key, onChange, onRemove}: IListC
     const [groupSize, setGroupSize] = createSignal<number>(existingData?.peopleCount || Group.defaultGroupSize)
     const [startingPoint, setStartingPoint] = createSignal<SelectableLocation>()
     
+    if (existingData !== undefined){
+        setStartingPoint(existingData.location)
+    }
+
     function isValid() {
         return startingPoint() !== undefined;
     }
