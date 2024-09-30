@@ -1,0 +1,42 @@
+.carCollapsible {
+    display: grid;
+    grid-template-areas:    "owner owner count"
+                            "remove gap gap";
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ownerPicker {
+    grid-area: owner;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.ownerPickerContent {
+    background-color: var(--backgroundColor);
+    border: var(--border-thickness) solid black;
+}
+
+.optionList {
+    list-style: none;
+    padding: 0px;
+    margin: 4px;
+}
+
+.selectItem {
+    transition: background-color 0.25s;
+    background-color: transparent;
+    padding: 0 8px;
+    line-height: 1;
+    height: 32px;
+    align-items: center;
+    display: flex;
+}
+
+.header {
+    margin: 0
+}
+
+.selectItem[data-highlighted] {
+    background-color: var(--lightEmphasis);
+}

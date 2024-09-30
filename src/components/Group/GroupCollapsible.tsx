@@ -8,6 +8,9 @@ import AddressPicker from "../AddressPicker/AddressPicker";
 import { Button } from "@kobalte/core/button";
 import styles from "./GroupCollapsible.module.css"
 import "../../styles/buttons.css"
+import "../../styles/collapsible.css"
+import "../../styles/inputStyles.css"
+import CountPicker from "../CountPicker/CountPicker";
 
 interface IGroupCollapsibleProps{
     RemoveGroup(): void
@@ -52,23 +55,16 @@ export function GroupCollapsible({RemoveGroup, RequestFocus, group}: IGroupColla
     }
 
     return {
-        UI:(<Collapsible open={open()} onOpenChange={OnChangeOpen} class={styles.groupCard}>
-            <Collapsible.Trigger class={styles.trigger}>
+        UI:(<Collapsible open={open()} onOpenChange={OnChangeOpen} class="collapsibleContainer">
+            <Collapsible.Trigger class="trigger">
                 <span>{name()}</span>
             </Collapsible.Trigger>
-            <Collapsible.Content class={styles.collapsibleCard}>
+            <Collapsible.Content class={[styles.collapsibleCard, "collapsible"].join(" ")}>
                 <TextField defaultValue={name() || defaultName} onChange={setName} class={styles.namePicker}>
                     <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
-                    <TextField.Input class={styles.input}/>
+                    <TextField.Input class="input"/>
                 </TextField>
-                <NumberField rawValue={groupSize()} onRawValueChange={setGroupSize} class={styles.groupSize} minValue={0}>
-                    <NumberField.Label class={styles.inputLabel}>Group Size</NumberField.Label>
-                    <div class={styles.groupSizePicker}>
-                        <NumberField.Input class={[styles.groupSizeInput, styles.input].join(" ")}/>
-                        <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
-                        <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
-                    </div>
-                </NumberField>
+                <CountPicker onChange={setGroupSize} defaultValue={groupSize()} className={styles.groupSize} label="Group Size"/>
                 <AddressPicker updateAddress={setStartingPoint} classNames={styles.addressPicker} defaultText={startingPoint()?.label}/>
                 <Button onClick={RemoveGroup} class="button">Remove Group</Button>
             </Collapsible.Content>
