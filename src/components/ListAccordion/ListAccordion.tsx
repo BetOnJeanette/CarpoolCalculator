@@ -11,7 +11,7 @@ interface IAccordionListProps<ReturnType>{
     ListElements(CollapsibleData: IListCollapsible<ReturnType>): JSX.Element
 }
 
-export default function AccordionList<ListType>({onSubmit, onBack, ListElements}: IAccordionListProps<ListType>){
+export default function ListAccordion<ListType>({onSubmit, onBack, ListElements}: IAccordionListProps<ListType>){
     const ALL_CLOSED = -1
 
     const [list, setList] = createSignal<Array<ListType | undefined>>([])
