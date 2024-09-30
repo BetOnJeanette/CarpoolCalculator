@@ -8,14 +8,16 @@ import GroupWrapper from "../../classes/GroupWrapper";
 import "../../styles/collapsible.css"
 import styles from "./CarsCollapsible.module.css"
 import CountPicker from "../CountPicker/CountPicker";
+import { Button } from "@kobalte/core/button";
 
 interface ICarProps {
     existingCar?: Car
     availableGroups: Group[]
     onChange(updatedCar: Car): void
+    onRemove(): void
 }
 
-export default function CarCollapsible({existingCar, onChange, availableGroups}: ICarProps): JSX.Element {
+export default function CarCollapsible({existingCar, availableGroups, onChange, onRemove}: ICarProps): JSX.Element {
     const [carOwner, setCarOwner] = createSignal<Group>();
     const [seatCount, setSeatCount] = createSignal<number>(Car.defaultSeats);
     if (existingCar !== undefined) {
@@ -88,6 +90,7 @@ export default function CarCollapsible({existingCar, onChange, availableGroups}:
                     </Select.Portal>
                 </Select>
                 <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
+                <Button class="button" onClick={onRemove}>Remove Car</Button>
             </Collapsible.Content>
         </Collapsible>
     )
