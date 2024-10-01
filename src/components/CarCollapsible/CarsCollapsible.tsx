@@ -8,21 +8,18 @@ import styles from "./CarsCollapsible.module.css"
 import CountPicker from "../CountPicker/CountPicker";
 import { Button } from "@kobalte/core/button";
 import { Accordion } from "@kobalte/core/accordion";
+import { IListCollapsible } from "../ListCollapsible/ListCollapsible";
 
-interface ICarProps {
-    existingCar?: Car
+interface ICarProps extends IListCollapsible<Car> {
     availableGroups: Group[]
-    key: Accessor<number>
-    onChange(updatedCar?: Car): void
-    onRemove(): void
 }
 
-export default function CarCollapsible({existingCar, availableGroups, key, onChange, onRemove}: ICarProps): JSX.Element {
+export default function CarCollapsible({existingData, availableGroups, key, onChange, onRemove}: ICarProps): JSX.Element {
     const [carOwner, setCarOwner] = createSignal<Group>();
     const [seatCount, setSeatCount] = createSignal<number>(Car.defaultSeats);
-    if (existingCar !== undefined) {
-        setCarOwner(existingCar.StartsWith);
-        setSeatCount(existingCar.Seats);
+    if (existingData !== undefined) {
+        setCarOwner(existingData.StartsWith);
+        setSeatCount(existingData.Seats);
     }
 
     const options = availableGroups.map((val) => new GroupWrapper(val))
@@ -51,7 +48,7 @@ export default function CarCollapsible({existingCar, availableGroups, key, onCha
 
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
-            <Accordion.Header class={styles.header}>
+            <Accordion.Header class="header">
                 <Accordion.Trigger class="trigger">
                     {carOwner()?.name || "New car"}
                 </Accordion.Trigger>

@@ -33,10 +33,6 @@
     display: flex;
 }
 
-.header {
-    margin: 0
-}
-
 .selectItem[data-highlighted] {
     background-color: var(--lightEmphasis);
 }

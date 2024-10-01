@@ -23,8 +23,8 @@ const App: Component = () => {
   const defaultState = () => Destination({onSubmitDest: updateDestination, currentDest: destination});
 
   let destination: SelectableLocation;
-  let groups: Group[];
-  let cars: Car[];
+  let groups: Group[] = [];
+  let cars: Car[] = [];
 
   function updateDestination(newDest: SelectableLocation){
     destination = newDest;
@@ -49,8 +49,8 @@ const App: Component = () => {
   StateMap.set(States.Destination, defaultState)
   
   onMount(() => {
-    StateMap.set(States.Groups, () => GroupsPage({BackUp: GoBack, UpdateGroups: updateGroups, groups: groups}));
-    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack}))
+    StateMap.set(States.Groups, () => GroupsPage({onBack: GoBack, onSubmit: updateGroups, existingGroups: groups}));
+    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack, existingCars: cars}))
   })
 
   return (

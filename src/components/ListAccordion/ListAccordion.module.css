@@ -1,14 +1,14 @@
-.groupPage {
+.listPage {
     display: grid;
     align-items: center;
     gap: 2px;
-    grid-template-areas:    "groups groups groups"
+    grid-template-areas:    "list list list"
                             "back add submit";
     grid-template-columns: 200px 1fr 200px;
 }
 
-.groups {
-    grid-area: groups;
+.list {
+    grid-area: list;
 }
 
 .backButton {
