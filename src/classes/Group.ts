@@ -1,3 +1,4 @@
+import { IPickupJob } from "./Jobs";
 import { SelectableLocation } from "./Location"
 
 export class Group {
@@ -9,5 +10,14 @@ export class Group {
     
     constructor(name: string, peopleCount: number, location: SelectableLocation){
         [this.name, this.peopleCount, this.location] = [name, peopleCount, location]
+    }
+
+    public GetRequestJob(id: number): IPickupJob{
+        return {
+            id: id,
+            description: this.name,
+            location: this.location.GetCoordinates(),
+            pickup: [this.peopleCount]
+        }
     }
 }

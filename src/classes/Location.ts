@@ -1,5 +1,6 @@
 import { FeatureResponse } from "./FeatureResponse";
 import { GeometryResponse } from "./GeometryResponse";
+import { IDropoffJob } from "./Jobs";
 import { PropertiesResponse } from "./PropertiesResponse";
 
 export class SelectableLocation {
@@ -24,5 +25,14 @@ export class SelectableLocation {
 
     public GetCoordinates(){ 
         return this.location.coordinates
+    }
+
+    public GetDestinationJob(id: number, totalMembers: number): IDropoffJob{
+        return {
+            id: id,
+            description: "Destination",
+            location: this.GetCoordinates(),
+            delivery: [totalMembers]
+        }
     }
 }
