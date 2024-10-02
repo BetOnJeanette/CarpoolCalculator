@@ -13,11 +13,13 @@ export class Car {
     }
 
     public GetVehicleRequest(id:number, dest: SelectableLocation): IVehicle {
+        const defaultProfile = "driving-car"
         return {
             id: id,
             start: this.StartsWith.location.GetCoordinates(),
             end: dest.GetCoordinates(),
-            capacity: [this.Seats]
+            capacity: [this.Seats],
+            profile: defaultProfile
         }
     }
 }
