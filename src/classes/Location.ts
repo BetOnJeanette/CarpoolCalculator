@@ -20,6 +20,9 @@ export class SelectableLocation {
         }
         elementsToUse.push(properties.region_a, properties.country_a)
         return elementsToUse.join(", ")
-        
+    }
+
+    public GetCoordinates(){ 
+        return this.location.coordinates
     }
 }
