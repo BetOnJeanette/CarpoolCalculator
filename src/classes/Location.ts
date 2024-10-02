@@ -1,6 +1,6 @@
 import { FeatureResponse } from "./FeatureResponse";
 import { GeometryResponse } from "./GeometryResponse";
-import { IDropoffJob } from "./Jobs";
+import { IJob } from "./Jobs";
 import { PropertiesResponse } from "./PropertiesResponse";
 
 export class SelectableLocation {
@@ -11,7 +11,6 @@ export class SelectableLocation {
     constructor(feature: FeatureResponse){
         this.location = feature.geometry;
         this.label = this.GetLabel(feature.properties);
-
     }
 
     private GetLabel(properties: PropertiesResponse): string {
@@ -25,14 +24,5 @@ export class SelectableLocation {
 
     public GetCoordinates(){ 
         return this.location.coordinates
-    }
-
-    public GetDestinationJob(id: number, totalMembers: number): IDropoffJob{
-        return {
-            id: id,
-            description: "Destination",
-            location: this.GetCoordinates(),
-            delivery: [totalMembers]
-        }
     }
 }

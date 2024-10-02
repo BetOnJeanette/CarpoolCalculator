@@ -7,7 +7,3 @@ export interface IJob {
 export interface IPickupJob extends IJob{
     pickup: number[]
 }
-
-export interface IDropoffJob extends IJob {
-    delivery: number[]
-}

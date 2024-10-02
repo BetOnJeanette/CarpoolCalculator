@@ -14,12 +14,10 @@ interface IRequestSentProps {
 
 export default function RequestSent({groups, cars, dest}: IRequestSentProps): JSX.Element {
     function GetRequestData(): IRouteRequest{
-        const totalMembers = groups.reduce((accumulator, current) => accumulator + current.peopleCount, 0);
-        const destJob = dest.GetDestinationJob(groups.length, totalMembers);
         const groupJobs =  groups.map((group, idx) => group.GetRequestJob(idx));
         const vehicles = cars.map((car, idx) => car.GetVehicleRequest(idx, dest))
         return {
-            jobs: [...groupJobs, destJob],
+            jobs: groupJobs,
             vehicles: vehicles
         }
     }
