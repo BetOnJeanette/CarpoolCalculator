@@ -5,6 +5,7 @@ import { SelectableLocation } from "../../classes/Location";
 import { IRouteRequest } from "../../classes/IRouteRequest";
 import axios from "axios";
 import { MapAPIKey } from "../../AppContext";
+import { IRouteResponse } from "../../classes/IRouteResponse";
 
 interface IRequestSentProps {
     groups: Group[],
@@ -24,11 +25,13 @@ export default function RequestSent({groups, cars, dest}: IRequestSentProps): JS
     
     onMount(async () => {
         const requestData = GetRequestData();
-        const data = await axios.post("https://api.openrouteservice.org/optimization", requestData, { 
+        const response = await axios.post("https://api.openrouteservice.org/optimization", requestData, { 
             headers: {
                 "Authorization": MapAPIKey
             }
         });
+        const data = response.data as IRouteResponse;
+
         console.log(data)
     })
 
