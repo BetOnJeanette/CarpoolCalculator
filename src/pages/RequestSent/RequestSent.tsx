@@ -6,14 +6,16 @@ import { IRouteRequest } from "../../classes/IRouteRequest";
 import axios from "axios";
 import { MapAPIKey } from "../../AppContext";
 import { IRouteResponse } from "../../classes/IRouteResponse";
+import { ParsedRoute } from "../../classes/ParsedRoute";
 
 interface IRequestSentProps {
     groups: Group[],
     cars: Car[]
     dest: SelectableLocation
+    onDataRecieved(routes: ParsedRoute[]): void
 }
 
-export default function RequestSent({groups, cars, dest}: IRequestSentProps): JSX.Element {
+export default function RequestSent({groups, cars, dest, onDataRecieved}: IRequestSentProps): JSX.Element {
     function GetRequestData(): IRouteRequest{
         const groupJobs =  groups.map((group, idx) => group.GetRequestJob(idx));
         const vehicles = cars.map((car, idx) => car.GetVehicleRequest(idx, dest))
@@ -32,7 +34,7 @@ export default function RequestSent({groups, cars, dest}: IRequestSentProps): JS
         });
         const data = response.data as IRouteResponse;
 
-        console.log(data)
+        onDataRecieved(data.routes.map(val => new ParsedRoute(val, cars, groups)))
     })
 
     return (<>

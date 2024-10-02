@@ -9,6 +9,6 @@ export class ParsedRoute {
 
     public constructor(route: IRoute, availableCars: Car[], availableGroups: Group[]){
         this.Vehicle = availableCars[route.vehicle];
-        this.PicksUp = route.steps.filter(val => val.type === StepType.job).map(val => availableGroups[val.id])
+        this.PicksUp = route.steps.filter(val => val.type === StepType.job).map(val => availableGroups[val.id]);
     }
 }
