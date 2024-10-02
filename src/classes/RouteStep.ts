@@ -1,4 +1,4 @@
-enum StepType {
+export enum StepType {
     start = "start",
     job = "job", 
     pickup = "pickup", 

@@ -1,5 +1,5 @@
-import { IRouteStep } from "./RouteStep"
+import { IRoute } from "./Routes";
 
 export interface IRouteResponse {
-    steps: IRouteStep[]
+    routes: IRoute[];    
 }
