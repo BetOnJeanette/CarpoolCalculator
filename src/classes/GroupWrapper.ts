@@ -4,8 +4,11 @@ export default class GroupWrapper {
     public name: string
     public group: Group
     public disabled = false;
-    public constructor(group: Group){
+    public id: number
+    
+    public constructor(group: Group, id: number){
         this.group = group;
         this.name = group.name
+        this.id = id
     }
 }

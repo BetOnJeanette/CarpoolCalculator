@@ -1,4 +1,4 @@
-import { Accessor, createSignal, JSX } from "solid-js";
+import { Accessor, createSignal, JSX, onMount } from "solid-js";
 import { Group } from "../../classes/Group";
 import { Car } from "../../classes/Car";
 import { Select } from "@kobalte/core/select";
@@ -22,7 +22,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
         setSeatCount(existingData.Seats);
     }
 
-    const options = availableGroups.map((val) => new GroupWrapper(val))
+    const options = availableGroups.map((val, idx) => new GroupWrapper(val, idx))
 
     function GetCarData(): Car | undefined{
         const currentOwner = carOwner()
@@ -43,9 +43,9 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
     function getDefaultGroup(){
         const currentOwner = carOwner()
         if (currentOwner === undefined) return undefined
-        return new GroupWrapper(currentOwner)
+        return options.find(val => val.group === currentOwner)
     }
-
+    
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
             <Accordion.Header class="header">
@@ -59,13 +59,14 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
                     options={options} 
                     optionTextValue="name" 
                     optionDisabled="disabled" 
-                    optionValue="group" 
+                    optionValue="id" 
                     defaultValue={getDefaultGroup()}
                     placeholder={"Who does the car start with?"} 
-                    onChange={(group) => updateCarOwner(group?.group || null)} itemComponent={props => (
-                    <Select.Item item={props.item} class={styles.selectItem}> 
-                        <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
-                    </Select.Item>
+                    onChange={(group) => {updateCarOwner(group?.group || null); console.log(group)}} 
+                    itemComponent={props => (
+                        <Select.Item item={props.item} class={styles.selectItem}> 
+                            <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
+                        </Select.Item>
                 )}> 
                     <Select.Label class="inputLabel">Car Owner</Select.Label>
                     <Select.Trigger class="input">
