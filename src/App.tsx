@@ -7,6 +7,7 @@ import { Group } from './classes/Group';
 import { Dynamic } from 'solid-js/web';
 import { Car } from './classes/Car';
 import CarsPage from './pages/Cars/carsPage';
+import RequestSent from './pages/RequestSent/RequestSent';
 
 const GroupsPage = lazy(async () => await import("./pages/Groups/Groups"))
 
@@ -38,7 +39,7 @@ const App: Component = () => {
 
   function updateCars(newCars: Car[]) {
     cars = newCars;
-    console.log(cars)
+    setState(States.Calculating)
   }
 
   function GoBack(){
@@ -51,6 +52,7 @@ const App: Component = () => {
   onMount(() => {
     StateMap.set(States.Groups, () => GroupsPage({onBack: GoBack, onSubmit: updateGroups, existingGroups: groups}));
     StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack, existingCars: cars}))
+    StateMap.set(States.Calculating, () => RequestSent({groups: groups, cars: cars, dest: destination}))
   })
 
   return (
