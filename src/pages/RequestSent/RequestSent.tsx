@@ -34,7 +34,7 @@ export default function RequestSent({groups, cars, dest, onDataRecieved}: IReque
         });
         const data = response.data as IRouteResponse;
 
-        onDataRecieved(data.routes.map(val => new ParsedRoute(val, cars, groups)))
+        onDataRecieved(data.routes.map(val => new ParsedRoute(val, cars, groups, dest)))
     })
 
     return (<>
