@@ -27,7 +27,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
     function GetCarData(): Car | undefined{
         const currentOwner = carOwner()
         if (currentOwner === undefined) return undefined;
-        return new Car(currentOwner, seatCount())
+        return new Car(key(), currentOwner, seatCount())
     }
 
     function updateCarOwner(newOwner: Group | null){ 
