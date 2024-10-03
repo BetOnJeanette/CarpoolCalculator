@@ -27,7 +27,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
     function GetCarData(): Car | undefined{
         const currentOwner = carOwner()
         if (currentOwner === undefined) return undefined;
-        return new Car(currentOwner, seatCount())
+        return new Car(key(), currentOwner, seatCount())
     }
 
     function updateCarOwner(newOwner: Group | null){ 
@@ -43,9 +43,9 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
     function getDefaultGroup(){
         const currentOwner = carOwner()
         if (currentOwner === undefined) return undefined
-        return options.find(val => val.group === currentOwner)
+        return options.find(val => val.group.id === currentOwner.id)
     }
-    
+
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
             <Accordion.Header class="header">
@@ -62,7 +62,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
                     optionValue="id" 
                     defaultValue={getDefaultGroup()}
                     placeholder={"Who does the car start with?"} 
-                    onChange={(group) => {updateCarOwner(group?.group || null); console.log(group)}} 
+                    onChange={(group) => updateCarOwner(group?.group || null)} 
                     itemComponent={props => (
                         <Select.Item item={props.item} class={styles.selectItem}> 
                             <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>

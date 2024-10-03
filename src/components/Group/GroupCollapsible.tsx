@@ -28,7 +28,7 @@ export function GroupCollapsible({existingData, key, onChange, onRemove}: IListC
 
     function getGroupData(): Group | undefined {
         if (!isValid()) return undefined;
-        return new Group(name(), groupSize(), startingPoint() as SelectableLocation);
+        return new Group(key(), name(), groupSize(), startingPoint() as SelectableLocation);
     }
 
     function UpdateName(newName: string){

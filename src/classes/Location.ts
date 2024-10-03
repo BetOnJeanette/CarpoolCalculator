@@ -1,5 +1,6 @@
 import { FeatureResponse } from "./FeatureResponse";
 import { GeometryResponse } from "./GeometryResponse";
+import { IJob } from "./Jobs";
 import { PropertiesResponse } from "./PropertiesResponse";
 
 export class SelectableLocation {
@@ -10,7 +11,6 @@ export class SelectableLocation {
     constructor(feature: FeatureResponse){
         this.location = feature.geometry;
         this.label = this.GetLabel(feature.properties);
-
     }
 
     private GetLabel(properties: PropertiesResponse): string {
@@ -20,6 +20,9 @@ export class SelectableLocation {
         }
         elementsToUse.push(properties.region_a, properties.country_a)
         return elementsToUse.join(", ")
-        
+    }
+
+    public GetCoordinates(){ 
+        return this.location.coordinates
     }
 }

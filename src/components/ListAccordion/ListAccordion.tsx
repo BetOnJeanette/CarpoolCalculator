@@ -6,13 +6,14 @@ import styles from "./ListAccordion.module.css"
 
 
 interface IAccordionListProps<ReturnType>{
-    onSubmit(list: ReturnType[]): void
+    onSubmit?(list: ReturnType[]): void
     onBack(): void
     ListElements(CollapsibleData: IListCollapsible<ReturnType>): JSX.Element
+    addText?: string
     existingData: ReturnType[]
 }
 
-export default function ListAccordion<ListType>({onSubmit, onBack, ListElements, existingData}: IAccordionListProps<ListType>){
+export default function ListAccordion<ListType>({onSubmit, onBack, ListElements, addText, existingData}: IAccordionListProps<ListType>){
     const ALL_CLOSED = -1
 
     const [list, setList] = createSignal<Array<ListType | undefined>>(existingData)
@@ -40,6 +41,7 @@ export default function ListAccordion<ListType>({onSubmit, onBack, ListElements,
     }
     
     function AttemptSubmit(){
+        if (onSubmit === undefined) throw new Error("there is no way to submit that data")
         if(list().length < 1) throw new Error("You need at least one item")
         const unfinishedIdx = list().findIndex((val) => val === undefined);
         if (unfinishedIdx !== -1) throw new Error(`At least one is not finished: ${unfinishedIdx}`)
@@ -68,8 +70,8 @@ export default function ListAccordion<ListType>({onSubmit, onBack, ListElements,
                 </For>
             </Accordion>
             <button class={[styles.backButton, "button"].join(" ")} onClick={onBack}>Back</button>
-            <button class={[styles.addButton, "button"].join(" ")} onClick={AddToList}>Add car</button>
-            <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />
+            {addText !== undefined && <button class={[styles.addButton, "button"].join(" ")} onClick={AddToList}>{addText}</button>}
+            {onSubmit !== undefined && <SubmitButton className={styles.submitButton} onSubmit={AttemptSubmit} />}
         </div>
     )
 
