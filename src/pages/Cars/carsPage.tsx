@@ -23,6 +23,6 @@ export default function CarsPage({availableGroups, onSubmit, onBack, existingCar
 
 
     return (
-        <ListAccordion existingData={existingCars} onSubmit={onSubmit} onBack={onBack} ListElements={getCarCollapsible}/>
+        <ListAccordion existingData={existingCars} addText="Add car"onSubmit={onSubmit} onBack={onBack} ListElements={getCarCollapsible}/>
     )
 }

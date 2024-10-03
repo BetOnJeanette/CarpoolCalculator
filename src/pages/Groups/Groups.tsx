@@ -11,6 +11,6 @@ interface IGroupProps {
 
 export default function GroupsPage({onBack, onSubmit, existingGroups}: IGroupProps){
     return (
-        <ListAccordion existingData={existingGroups} onSubmit={onSubmit} onBack={onBack} ListElements={GroupCollapsible} />
+        <ListAccordion existingData={existingGroups} onSubmit={onSubmit} addText="Add group" onBack={onBack} ListElements={GroupCollapsible} />
     )
 }
