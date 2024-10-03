@@ -43,9 +43,9 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
     function getDefaultGroup(){
         const currentOwner = carOwner()
         if (currentOwner === undefined) return undefined
-        return options.find(val => val.group === currentOwner)
+        return options.find(val => val.group.id === currentOwner.id)
     }
-    
+
     return (
         <Accordion.Item class="collapsibleContainer" value={key().toString()}>
             <Accordion.Header class="header">
