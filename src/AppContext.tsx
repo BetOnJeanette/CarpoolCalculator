@@ -1,15 +1,34 @@
 import Bottleneck from "bottleneck";
-import { Component, createContext, ParentComponent, useContext } from "solid-js";
+import { Accessor, Component, createContext, createSignal, onMount, ParentComponent, useContext } from "solid-js";
+import { SelectableLocation } from "./classes/Location";
 
 interface ContextData {
-
+    searchPosition?: Accessor<number[]>
+    UpdateSearchPosition(newLoc: number[] | SelectableLocation): void
+    
 }
 
 const AppContext = createContext<ContextData>();
 
 export const AppContextProvider: ParentComponent = (props) => {
+    const [pos, setPos] = createSignal<number[]>([])
+    function updatePos(newLoc: number[] | SelectableLocation) {
+        if (newLoc instanceof SelectableLocation) setPos(newLoc.GetCoordinates());
+        else setPos(newLoc);
+    }
+
+    function UpdatePositionFromPermission(updatedLoc: GeolocationPosition) {
+        updatePos([updatedLoc.coords.longitude, updatedLoc.coords.latitude])
+    }
+
+    onMount(() => {
+         navigator.geolocation.getCurrentPosition(UpdatePositionFromPermission, (err) => console.log("geolocation: ",err.message))   
+    })
+
     return (
         <AppContext.Provider value = {{
+            searchPosition: pos,
+            UpdateSearchPosition: updatePos
         }}>
             {props.children}
         </AppContext.Provider>

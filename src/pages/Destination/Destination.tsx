@@ -12,6 +12,7 @@ interface IDestinationProps {
 
 const Destination: Component<IDestinationProps> = ({onSubmitDest, currentDest}: IDestinationProps) => {
     const [dest, setDest] = createSignal<SelectableLocation>()
+    const context = useAppContext();
     if (currentDest !== undefined) setDest(currentDest)
 
     const contextData = useAppContext();
@@ -20,6 +21,7 @@ const Destination: Component<IDestinationProps> = ({onSubmitDest, currentDest}: 
     const submitDestination = () => {
         const chosenDest = dest()
         if (chosenDest === undefined) throw new Error("No destination chosen")
+        if (context?.UpdateSearchPosition !== undefined) context.UpdateSearchPosition(chosenDest)
         onSubmitDest(chosenDest)
     }
 

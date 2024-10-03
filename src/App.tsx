@@ -1,7 +1,7 @@
 import { createSignal, Component, onMount, lazy, JSX, ValidComponent } from 'solid-js';
 import { Destination } from "./pages/Destination/Destination"
 import styles from './App.module.css';
-import { AppContextProvider } from './AppContext';
+import { AppContextProvider, useAppContext } from './AppContext';
 import { SelectableLocation } from './classes/Location';
 import { Group } from './classes/Group';
 import { Dynamic } from 'solid-js/web';
