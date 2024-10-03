@@ -2,11 +2,13 @@
   "name": "vite-template-solid",
   "version": "0.0.0",
   "description": "",
+  "homepage": "https://BetOnJeanette.github.io/CarpoolCalculator",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "gh-pages -d build"
   },
   "license": "MIT",
   "devDependencies": {
