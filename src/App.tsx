@@ -8,6 +8,8 @@ import { Dynamic } from 'solid-js/web';
 import { Car } from './classes/Car';
 import CarsPage from './pages/Cars/carsPage';
 import RequestSent from './pages/RequestSent/RequestSent';
+import { ParsedRoute } from './classes/ParsedRoute';
+import RoutesPage from './pages/Routes/Routes';
 
 const GroupsPage = lazy(async () => await import("./pages/Groups/Groups"))
 
@@ -26,6 +28,7 @@ const App: Component = () => {
   let destination: SelectableLocation;
   let groups: Group[] = [];
   let cars: Car[] = [];
+  let routes: ParsedRoute[] = []
 
   function updateDestination(newDest: SelectableLocation){
     destination = newDest;
@@ -42,18 +45,23 @@ const App: Component = () => {
     setState(States.Calculating)
   }
 
+  function updateRoutes(newRoutes: ParsedRoute[]) {
+    routes = newRoutes
+    setState(States.Route);
+    console.log(routes)
+  }
+
   function GoBack(){
-    setState(state() - 1)
+    if (state() === States.Route) setState(States.Cars);
+    else setState(state() - 1)
   }
 
   const StateMap = new Map<States, () => JSX.Element>()
   StateMap.set(States.Destination, defaultState)
-  
-  onMount(() => {
-    StateMap.set(States.Groups, () => GroupsPage({onBack: GoBack, onSubmit: updateGroups, existingGroups: groups}));
-    StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack, existingCars: cars}))
-    StateMap.set(States.Calculating, () => RequestSent({groups: groups, cars: cars, dest: destination}))
-  })
+  StateMap.set(States.Groups, () => GroupsPage({onBack: GoBack, onSubmit: updateGroups, existingGroups: groups}));
+  StateMap.set(States.Cars, () => CarsPage({onSubmit: updateCars, availableGroups: groups, onBack: GoBack, existingCars: cars}))
+  StateMap.set(States.Calculating, () => RequestSent({groups: groups, cars: cars, dest: destination, onDataRecieved: updateRoutes}))
+  StateMap.set(States.Route, () => RoutesPage({OnBack: GoBack, routes: routes}))
 
   return (
     <AppContextProvider>
