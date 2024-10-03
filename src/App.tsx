@@ -29,11 +29,9 @@ const App: Component = () => {
   let groups: Group[] = [];
   let cars: Car[] = [];
   let routes: ParsedRoute[] = []
-  const contextData = useAppContext()
 
   function updateDestination(newDest: SelectableLocation){
     destination = newDest;
-    if (contextData?.searchPosition === undefined) contextData?.UpdateSearchPosition(newDest)
     setState(States.Groups)
   }
 
@@ -65,15 +63,6 @@ const App: Component = () => {
   StateMap.set(States.Calculating, () => RequestSent({groups: groups, cars: cars, dest: destination, onDataRecieved: updateRoutes}))
   StateMap.set(States.Route, () => RoutesPage({OnBack: GoBack, routes: routes}))
 
-  function UpdatePositionFromPermission(results: GeolocationPosition){
-    const coordArr = [results.coords.latitude, results.coords.longitude];
-    console.log(coordArr)
-    contextData?.UpdateSearchPosition(coordArr);
-  }
-
-  onMount(() => {
-    navigator.geolocation.getCurrentPosition(UpdatePositionFromPermission, (err) => console.log("geolocation: ",err.message))
-  })
   return (
     <AppContextProvider>
       <div class={styles.App}>
