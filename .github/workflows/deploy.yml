@@ -22,6 +22,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env: 
+  VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
