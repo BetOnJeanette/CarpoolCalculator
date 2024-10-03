@@ -62,7 +62,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
                     optionValue="id" 
                     defaultValue={getDefaultGroup()}
                     placeholder={"Who does the car start with?"} 
-                    onChange={(group) => {updateCarOwner(group?.group || null); console.log(group)}} 
+                    onChange={(group) => updateCarOwner(group?.group || null)} 
                     itemComponent={props => (
                         <Select.Item item={props.item} class={styles.selectItem}> 
                             <Select.ItemLabel>{props.item.rawValue.name}</Select.ItemLabel>
