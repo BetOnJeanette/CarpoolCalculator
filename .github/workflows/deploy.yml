@@ -42,10 +42,7 @@ jobs:
       - name: Build
         run: bun run build
         working-directory: ${{ env.BUILD_PATH }}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps: 
+        
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
