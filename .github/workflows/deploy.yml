@@ -37,6 +37,7 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
+      - run: bun i
       
       - name: Build
         run: bun run build
