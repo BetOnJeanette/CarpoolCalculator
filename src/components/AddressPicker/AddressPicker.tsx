@@ -20,6 +20,7 @@ interface PickerProps {
 }
 
 const AddressPicker: Component<PickerProps> = ({classNames, updateAddress, defaultText}: PickerProps) => {
+    const context = useAppContext()
     const bottleneck = GetBottleNeck();
     const autofillURL = "https://api.openrouteservice.org/geocode/autocomplete?"
     const searchParams = new URLSearchParams();
@@ -30,6 +31,10 @@ const AddressPicker: Component<PickerProps> = ({classNames, updateAddress, defau
         if (inputVal == "") return [];
         return await bottleneck.schedule( async() => {
             searchParams.set("text", inputVal)
+            if (context?.searchPosition !== undefined && context.searchPosition().length == 2){
+                searchParams.set("focus.point.lon", context.searchPosition()[0].toString());
+                searchParams.set("focus.point.lat", context.searchPosition()[1].toString());
+            }
             const search = autofillURL+searchParams.toString()
             const locations: QueryResponse  = await (await axios.get(search)).data
             return locations.features.map( feature => new SelectableLocation(feature))
