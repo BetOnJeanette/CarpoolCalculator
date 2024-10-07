@@ -55,7 +55,7 @@ export function GroupCollapsible({existingData, key, onChange, onRemove}: IListC
             </Accordion.Header>
             <Accordion.Content class={[styles.collapsibleCard, "collapsible"].join(" ")}>
                 <TextField defaultValue={name() || Group.defaultName} onChange={UpdateName} class={styles.namePicker}>
-                    <TextField.Label class={styles.inputLabel}>Group Name</TextField.Label>
+                    <TextField.Label class="inputLabel">Group Name</TextField.Label>
                     <TextField.Input class="input"/>
                 </TextField>
                 <CountPicker onChange={UpdateGroupSize} defaultValue={groupSize()} className={styles.groupSize} label="Group Size"/>

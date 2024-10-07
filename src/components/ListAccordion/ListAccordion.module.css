@@ -1,10 +1,10 @@
 .listPage {
     display: grid;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     grid-template-areas:    "list list list"
                             "back add submit";
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: max-content 1fr max-content;
 }
 
 .list {

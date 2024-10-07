@@ -36,3 +36,16 @@
 .selectItem[data-highlighted] {
     background-color: var(--lightEmphasis);
 }
+.seatPicker {
+    display: inline-flex;
+}
+
+@media (width < 500px) {
+    .carCollapsible {
+        display: flex;
+        flex-direction: column;
+    }
+    .ownerPicker, .seatPicker {
+        justify-content: space-between !important;
+    }
+}
