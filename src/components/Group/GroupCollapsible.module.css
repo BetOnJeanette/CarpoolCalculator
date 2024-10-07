@@ -18,13 +18,23 @@
 }
 
 .groupSize {
-    grid-area: count; 
-}
-
-.inputLabel {
-    padding-right: 4px;
+    grid-area: count;
+    display: inline-flex;
 }
 
 .groupSubmit {
     grid-area: save;
+}
+
+@media (width < 500px) {
+    .collapsibleCard {
+        grid-template-areas:    "name name"
+                                "count count"
+                                "start start"
+                                "delete save";
+        grid-template-columns: 1fr 1fr;
+    }
+    .namePicker, .groupSize {
+        justify-content: space-between;
+    }
 }

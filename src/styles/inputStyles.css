@@ -2,8 +2,13 @@
     padding: var(--border-thickness);
     border: solid 2px gray;
     transition: background-color .25s;
+    display: inline-flex;
+    width: max-content;
+    max-width: 150px;
 }
 
 .inputLabel { 
     padding-right: 4px;
+    width: fit-content;
+    white-space: nowrap;
 }

@@ -14,8 +14,6 @@ export default function CountPicker({onChange, defaultValue, className, label}: 
             <NumberField.Label class="inputLabel">{label}</NumberField.Label>
             <div class={styles.groupSizePicker}>
                 <NumberField.Input class={[styles.groupSizeInput, styles.input, "input"].join(" ")}/>
-                <NumberField.IncrementTrigger class="button">+</NumberField.IncrementTrigger>  
-                <NumberField.DecrementTrigger class="button">-</NumberField.DecrementTrigger>  
             </div>
         </NumberField>
     )
