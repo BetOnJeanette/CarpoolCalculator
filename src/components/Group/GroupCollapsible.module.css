@@ -28,11 +28,8 @@
 
 @media (width < 500px) {
     .collapsibleCard {
-        grid-template-areas:    "name name"
-                                "count count"
-                                "start start"
-                                "delete save";
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
     }
     .namePicker, .groupSize {
         justify-content: space-between;
