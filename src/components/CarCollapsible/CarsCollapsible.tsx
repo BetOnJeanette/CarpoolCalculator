@@ -81,7 +81,7 @@ export default function CarCollapsible({existingData, availableGroups, key, onCh
                         </Select.Content>
                     </Select.Portal>
                 </Select>
-                <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" />
+                <CountPicker defaultValue={Car.defaultSeats} onChange={updateSeatCount} label="Available Seats" className={styles.seatPicker} />
                 <Button class="button" onClick={onRemove}>Remove Car</Button>
             </Accordion.Content>
         </Accordion.Item>
