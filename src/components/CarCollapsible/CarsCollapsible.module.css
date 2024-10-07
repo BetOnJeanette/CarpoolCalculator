@@ -36,3 +36,13 @@
 .selectItem[data-highlighted] {
     background-color: var(--lightEmphasis);
 }
+
+@media (width < 500px) {
+    .carCollapsible {
+        display: flex;
+        flex-direction: column;
+    }
+    .ownerPicker {
+        justify-content: space-between;
+    }
+}
